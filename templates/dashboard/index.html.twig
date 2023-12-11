@@ -2,13 +2,17 @@
 
 {% block title %}Dashboard
 {% endblock %}
+
 {% block stylesheets %}
 	<link href="{{asset('CSS/dashboard.css')}}" rel="stylesheet">
 {% endblock %}
+
 {% block body %}
 	{% include "tools/dashNav.html.twig" %}
 
 	<div class="text-center">
 		<h1 class="text-danger">{{ titre }}!</h1>
 	</div>
+	{% include "tools/footer.html.twig" %}
+
 {% endblock %}

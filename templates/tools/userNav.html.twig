@@ -1,18 +1,24 @@
-<ul class="nav justify-content-end">
+{% block stylesheets %}
+	<link href="{{asset('css/userNav.css')}}" rel="stylesheet">
+{% endblock %}
+
+
+<ul class="nav justify-content-end bg-danger">
 	<li class="nav-item">
-		<a class="nav-link active" aria-current="page" href="#">Active</a>
+		<a class="nav-link active" aria-current="page" href="/">Accueil</a>
 	</li>
+    
 	<li class="nav-item">
-		<a class="nav-link" href="#">Link</a>
+		<a class="nav-link" href="#">Mes Commandes</a>
 	</li>
+
 	<li class="nav-item">
-		<a class="nav-link" href="#">Link</a>
+		<a class="nav-link" href="#">Mon panier</a>
 	</li>
+	
 	<li class="nav-item">
-		<a class="nav-link" aria-disabled="true">Disabled</a>
+		<a class="nav-link" href="/auth">
+			Se connecter/S'inscrire
+		</a>
 	</li>
-		<div class="btn-group me-2">
-			<button type="button" class="btn btn-sm btn-outline-light text-white">Se connecter</button>
-			<button type="button" class="btn btn-sm btn-outline-light text-white">S'inscrire</button>
-		</div>
 </ul>

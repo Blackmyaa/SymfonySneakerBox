@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Accueil{% endblock %}
+
+
 {% block body %}
 {% include "tools/userNav.html.twig" %}
+
 <div class="text-center">
     <h1 class="text-danger">Welcome on {{ nomSite }}!</h1>
 
 </div>
+{% include "tools/footer.html.twig" %}
 {% endblock %}
