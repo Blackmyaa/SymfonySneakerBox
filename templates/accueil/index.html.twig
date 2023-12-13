@@ -1,14 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Accueil
+{% endblock %}
 
 
 {% block body %}
-{% include "tools/userNav.html.twig" %}
+	{% include "tools/userNav.html.twig" %}
+	<div class="col-lg-4 mx-auto">
+		<div class="border border-2 border-dark rounded-4 mt-5">
 
-<div class="text-center">
-    <h1 class="text-danger">Welcome on {{ nomSite }}!</h1>
-
-</div>
-{% include "tools/footer.html.twig" %}
+			<div class="text-center my-3">
+				<h1 class="text-danger">Welcome on
+					{{ nomSite }}</h1>
+				{% if app.user %}
+					<h2>Bonjour
+						{{ app.user.prenom }}</h2>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	{% include "tools/footer.html.twig" %}
 {% endblock %}

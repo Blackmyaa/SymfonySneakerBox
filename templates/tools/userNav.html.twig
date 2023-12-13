@@ -7,18 +7,30 @@
 	<li class="nav-item">
 		<a class="nav-link active" aria-current="page" href="/">Accueil</a>
 	</li>
-    
-	<li class="nav-item">
-		<a class="nav-link" href="#">Mes Commandes</a>
-	</li>
+	{% if app.user %}
+		<li class="nav-item">
+			<a class="nav-link" href="#">Mon Compte</a>
+		</li>
 
-	<li class="nav-item">
-		<a class="nav-link" href="#">Mon panier</a>
-	</li>
-	
-	<li class="nav-item">
-		<a class="nav-link" href="/auth">
-			Se connecter/S'inscrire
-		</a>
-	</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#">Mon panier</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/deconnexion">
+				Me déconnecter
+			</a>
+		</li>
+
+	{% else %}
+		<li class="nav-item">
+			<a class="nav-link" href="/connexion">
+				Me connecter
+			</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="/inscription">
+				M'inscrire
+			</a>
+		</li>
+	{% endif %}
 </ul>

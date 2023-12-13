@@ -6,10 +6,14 @@ use App\Repository\CommandesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Trait\CreatedAtTrait;
+// injection du trait CreatedAtTrait
 
 #[ORM\Entity(repositoryClass: CommandesRepository::class)]
 class Commandes
 {
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -18,11 +22,8 @@ class Commandes
     #[ORM\Column(length: 30, unique: true)]
     private ?string $reference = null;
 
-    #[ORM\Column(options: ['default'=> 'CURRENT_TIMESTAMP'])]
-    private ?\DateTimeImmutable $created_at = null;
-
     #[ORM\ManyToOne(inversedBy: 'commandes')]
-    private ?coupons $coupons = null;
+    private ?Coupons $coupons = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
     #[ORM\JoinColumn(nullable: false)]
@@ -34,6 +35,7 @@ class Commandes
     public function __construct()
     {
         $this->detailCommandes = new ArrayCollection();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -53,24 +55,12 @@ class Commandes
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $created_at): static
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
     public function getCoupons(): ?coupons
     {
         return $this->coupons;
     }
 
-    public function setCoupons(?coupons $coupons): static
+    public function setCoupons(?Coupons $coupons): static
     {
         $this->coupons = $coupons;
 
