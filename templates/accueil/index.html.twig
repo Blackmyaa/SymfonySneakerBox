@@ -6,16 +6,15 @@
 
 {% block body %}
 	{% include "tools/userNav.html.twig" %}
-	<div class="col-lg-4 mx-auto">
-		<div class="border border-2 border-dark rounded-4 mt-5">
 
+	<div class="col-lg-6 mx-auto">
+		<div class="border border-2 border-dark rounded-4 mt-5">
 			<div class="text-center my-3">
-				<h1 class="text-danger">Welcome on
-					{{ nomSite }}</h1>
-				{% if app.user %}
-					<h2>Bonjour
-						{{ app.user.prenom }}</h2>
-				{% endif %}
+				<h1 class="text-danger">Hello
+					{% if app.user %}
+						{{app.user.prenom}}
+					{% endif %}, Welcome on {{ nomSite }}</h1>
+
 			</div>
 		</div>
 	</div>

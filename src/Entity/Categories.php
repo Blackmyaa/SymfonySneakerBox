@@ -23,6 +23,7 @@ class Categories
     private ?string $nom = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')] // On rajoute cette ligne pour que si on efface une catégorie, toutes les catégories enfants soient supprimées en meme temps
     private ?self $parent = null;
 
     #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
