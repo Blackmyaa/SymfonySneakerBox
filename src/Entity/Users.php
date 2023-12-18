@@ -46,6 +46,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $ville = null;
 
+    #[ORM\Column] //on ajoute à la bdd la propriété is_verified pour verifier si l'utiklisateur est actif ou pas
+    private ?bool $is_verified = false;
+
     #[ORM\Column(options: ['default'=> 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $cree_le = null;
 
@@ -184,6 +187,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function setVille(string $ville): static
     {
         $this->ville = $ville;
+
+        return $this;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->is_verified;
+    }
+
+    public function setIsVerified(bool $is_verified): self
+    {
+        $this->is_verified = $is_verified;
 
         return $this;
     }

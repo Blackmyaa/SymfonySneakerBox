@@ -5,32 +5,40 @@
 
 <ul class="nav justify-content-end bg-danger">
 	<li class="nav-item">
-		<a class="nav-link active" aria-current="page" href="/">Accueil</a>
+		<a class="nav-link text-white active" aria-current="page" href="/">Accueil</a>
 	</li>
 	{% if app.user %}
 		<li class="nav-item">
-			<a class="nav-link" href="#">Mon Compte</a>
+			<a class="nav-link text-white" href="#">Mon Compte</a>
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link" href="#">Mon panier</a>
+			<a class="nav-link text-white" href="#">Mon panier</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/deconnexion">
+			<a class="nav-link text-white" href="/deconnexion">
 				Me déconnecter
 			</a>
 		</li>
 
 	{% else %}
 		<li class="nav-item">
-			<a class="nav-link" href="/connexion">
+			<a class="nav-link text-white" href="/connexion">
 				Me connecter
 			</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link" href="/inscription">
+			<a class="nav-link text-white" href="/inscription">
 				M'inscrire
 			</a>
 		</li>
 	{% endif %}
 </ul>
+{% if app.user  and app.user.isVerified == false %}
+	<div class="alert alert-warning alert-dismissible" role="alert">
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+		<div class="alert-message">
+			<strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation
+		</div>
+	</div>
+{% endif %}

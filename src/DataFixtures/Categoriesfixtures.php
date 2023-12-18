@@ -27,6 +27,8 @@ class Categoriesfixtures extends Fixture
         $this->createCategorie('Bottines', $parent, $manager);
 
         $this->createCategorie('Accessoires', $parent, $manager);
+        $this->createCategorie('Baskets', $parent, $manager);
+
 
         $parent = $this->createCategorie('Homme', null, $manager);
         $this->createCategorie('Chaussures', $parent, $manager);
@@ -59,7 +61,9 @@ class Categoriesfixtures extends Fixture
         $categorie = new Categories();
         $categorie->setNom($name);
         $categorie->setSlug($this->slugger->slug($categorie->getNom())->lower());
+        $categorie->setCategoryOrder(0);
         $categorie->setParent($parent);
+        
         $manager->persist($categorie);
 
         $this->addReference('cat-'.$this->counter, $categorie);
