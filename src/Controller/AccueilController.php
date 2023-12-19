@@ -16,9 +16,7 @@ class AccueilController extends AbstractController
 
         return $this->render('accueil/index.html.twig', [
             'nomSite' => 'MySneakerBox',
-            'categories' => $categoriesRepo->findBy([],['categoryOrder' => 'asc'])
-
-
+            'categories' => $categoriesRepo->findBy([],['categoryOrder' => 'asc']),
         ]);
     }
 }

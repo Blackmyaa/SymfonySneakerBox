@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits de la catégorie
+	{{ categories.nom }}
+{% endblock %}
+{% block stylesheets %}
+	
+{% endblock %}
+{% block body %}
+
+
+	{% include "tools/userNav.html.twig" %}
+	<main class="container">
+		<section class="row">
+
+			<h1>Liste des produits de la catégorie
+				{{ categories.nom }}</h1>
+
+			{% for produit in categories.produits %}
+				<div class="col-3 mb-2">
+					<div class="card h-100">
+						<div class="card-body">
+							<h5 class="card-title">{{produit.nom}}</h5>
+							<p class="card-text">{{produit.description}}</p>
+							<a href="#" class="btn btn-primary">voir les détails</a>
+						</div>
+					</div>
+				</div>
+
+
+			{% endfor %}
+
+		</section>
+	</main>
+
+	{% include "tools/footer.html.twig" %}
+{% endblock %}

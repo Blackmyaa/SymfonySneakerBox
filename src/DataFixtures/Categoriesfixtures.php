@@ -31,10 +31,10 @@ class Categoriesfixtures extends Fixture
 
 
         $parent = $this->createCategorie('Homme', null, $manager);
-        $this->createCategorie('Chaussures', $parent, $manager);
-        $this->createCategorie('Bottines', $parent, $manager);
+        $this->createCategorie('Chaussures-Homme', $parent, $manager);
+        $this->createCategorie('Bottines-Homme', $parent, $manager);
 
-        $this->createCategorie('Accessoires', $parent, $manager);
+        $this->createCategorie('Accessoires-Homme', $parent, $manager);
 
 
         // $parent2 = new Categories();

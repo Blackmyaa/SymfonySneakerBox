@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/profil', name: 'app_profile_')]
+#[Route('/profil', name: 'profile_')]
 
 class ProfileController extends AbstractController
 {

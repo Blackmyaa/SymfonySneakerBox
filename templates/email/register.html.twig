@@ -1,0 +1,14 @@
+<h1>Activez votre compte</h1><br><br>
+
+<p>Bonjour {{user.prenom}},<br>
+
+Merci d’avoir rejoint MySneakersBox.<br><br>
+
+Nous aimerions vous confirmer que votre compte a été créé avec succès. Pour accéder à MySneakersBox, cliquez sur le bouton ci-dessous. Le lien expirera dans 3h.<br><br>
+
+<a href="{{ absolute_url(path('verif_user', {token: token})) }}">Clique Clique Boom</a> <br><br>
+
+Si vous rencontrez des difficultés pour vous connecter à votre compte, contactez-nous à contact@mysneakerbox.fr.<br><br>
+
+Cordialement,<br>
+L’équipe MySneakersBox</p>

@@ -20,7 +20,7 @@ class ProduitsFixtures extends Fixture
         // use the factory to create a Faker\Generator instance
         $faker = Faker\Factory::create('fr_FR');
 
-        for($prod = 1; $prod <= 15; $prod++){
+        for($prod = 1; $prod <= 150; $prod++){
             $product = new Produits();
             $product->setNom($faker->text(15));
             $product->setDescription($faker->text());
@@ -29,7 +29,7 @@ class ProduitsFixtures extends Fixture
             $product->setStock($faker->numberBetween(0, 10));
 
             //On va chercher une référence de catégorie
-            $category = $this->getReference('cat-'. rand(1, 8));
+            $category = $this->getReference('cat-'. rand(1, 9));
             $product->setCategories($category);
 
             $this->setReference('prod-'.$prod, $product);

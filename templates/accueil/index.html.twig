@@ -6,39 +6,40 @@
 
 {% block body %}
 	{% include "tools/userNav.html.twig" %}
-<main class="container">
-	<div class="col-lg-6 mx-auto">
-		<div class="border border-2 border-dark rounded-4 mt-5">
-			<div class="text-center my-3">
-				<h1 class="text-danger">Hello
-					{% if app.user %}
-						{{app.user.prenom}}
-					{% endif %}, Welcome on {{ nomSite }}</h1>
+	<main class="container">
+		<div class="col-lg-6 mx-auto">
+			<div class="border border-2 border-dark rounded-4 mt-5">
+				<div class="text-center my-3">
+					<h1 class="text-danger">Hello
+						{% if app.user %}
+							{{app.user.prenom}}
+						{% endif %}, Welcome on
+						{{ nomSite }}</h1>
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<section class="row">
-		{% for category in categories %}
-			{% if category.parent == null %}
-				<div class="col-12">
-					<h2>{{ category.nom }}</h2>	
-				</div>
-			{% else %}
-				<div class="col-3">
+		<section class="row">
+			{% for category in categories %}
+				{% if category.parent == null %}
+					<div class="col-12">
+						<h2>{{ category.nom }}</h2>
 
-					<div class="card h-100 border-dark" >
-						<div class="card-body">
-							<h5 class="card-title">{{category.nom}}</h5>
-							
-							<a href="#" class="btn btn-primary">Voir les produits</a>
+					</div>
+				{% else %}
+					<div class="col-3">
+
+						<div class="card h-100 border-dark">
+							<div class="card-body">
+								<h5 class="card-title">{{category.nom}}</h5>
+								<a href="{{ path('categories_list', {slug: category.slug})}}" class="btn btn-primary">Voir les produits</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endif %}
-		{% endfor %}
-	</section>
-</main>
+				{% endif %}
+			{% endfor %}
+		</section>
+	</main>
 
 	{% include "tools/footer.html.twig" %}
 {% endblock %}

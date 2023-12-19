@@ -38,7 +38,9 @@
 	<div class="alert alert-warning alert-dismissible" role="alert">
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
 		<div class="alert-message">
-			<strong>Votre compte n'est pas activé</strong>, renvoyer le lien d'activation
+			<strong>Votre compte n'est pas activé</strong>, renvoyer le <a href="{{ path('resend_verif')}}">lien d'activation</a>
 		</div>
 	</div>
 {% endif %}
+
+{% include "tools/messageFlash.html.twig" %}
