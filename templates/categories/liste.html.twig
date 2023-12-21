@@ -22,7 +22,7 @@
 						<div class="card-body">
 							<h5 class="card-title">{{produit.nom}}</h5>
 							<p class="card-text">{{produit.description}}</p>
-							<a href="#" class="btn btn-primary">voir les détails</a>
+							<a href="{{ path('produits_details', {slug: produit.slug}) }}" class="btn btn-primary">voir les détails</a>
 						</div>
 					</div>
 				</div>

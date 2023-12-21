@@ -1,11 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Détails de {{ produits.nom }}{% endblock %}
+{% block title %}Détails de
+	{{ produits.nom }}
+{% endblock %}
+
+{% block stylesheets %}
+	<style>
+        button{
+            color: black;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
-    <h1>Détails de {{ produits.nom }}</h1>
+	{% include "tools/userNav.html.twig" %}
+	<main class="container">
+		<section class="row">
+			<h1>Détails de
+				{{ produits.nom }}</h1>
+			<h2 class="mt-2 mb-2">Description:</h2>
 
-    <h2 class="mt-2 mb-2">Description:</h2>
-    <p>{{ produits.description }}</p>
+			<div class="col-6">
+				<div id="carouselExampleIndicators" class="carousel slide">
+					<div class="carousel-indicators">
+						{% for iteration in 1..produits.images|length %}
+							<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}" {{ (loop.first) ? 'class="active" aria-current="true"'}} aria-label="Slide {{ iteration }}"></button>
+						{% endfor %}
+					</div>
 
+					<div class="col-5 mx-auto">
+						<div class="carousel-inner">
+							{% for image in produits.images %}
+								<div class="carousel-item {{ (loop.first) ? 'active' : '' }}">
+									<img src="{{asset('uploads/') ~ image.nom}}" class="d-block w-100" alt="{{ produits.nom }}">
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+
+
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="col-6">
+				<p>{{ produits.description }}</p>
+				<div>Univers:
+					{{produits.categories.parent.nom }}</div>
+				<div>Catégorie:
+					{{produits.categories.nom }}</div>
+				<div>Prix:
+					{{produits.prix / 100 }}
+					€</div>
+
+                {% if produits.stock > 0 %}
+                    <a href="#" class="btn btn-success mt-2">Ajouter au panier</a>
+                {% else %}
+                    <p class="text-danger">Produit momentanément en rupture de stock</p>
+                {% endif %}
+                
+			</div>
+		</section>
+	</main>
+	{% include "tools/footer.html.twig" %}
 {% endblock %}
