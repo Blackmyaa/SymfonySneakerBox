@@ -52,6 +52,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ['default'=> 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $cree_le = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $resetToken = null;
+
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Commandes::class)]
     private Collection $commandes;
 
@@ -241,6 +244,26 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
                 $commande->setUsers(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * Get the value of resetToken
+     */ 
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    /**
+     * Set the value of resetToken
+     *
+     * @return  self
+     */ 
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
 
         return $this;
     }
