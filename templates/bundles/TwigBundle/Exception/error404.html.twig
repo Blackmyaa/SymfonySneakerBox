@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page non trouvée - Erreur 404
+{% endblock %}
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	<main class="text-center">
+		<h1 class="h2">Page non trouvée</h1>
+		<p>La page que vous cherchez n'a pas été trouvée ou n'existe pas</p>
+		<img src="{{asset('img/Erreurs/erreur_404.jpg')}}">
+	</main>
+{% endblock %}

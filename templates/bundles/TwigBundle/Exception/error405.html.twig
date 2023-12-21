@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Méthode non Authorisée - Erreur 405
+{% endblock %}
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	<main class="text-center">
+		<h1 class="h2">M&thode non Authorisée</h1>
+		<p>Cette méthode n'est pas authorisée</p>
+		<img src="{{asset('img/Erreurs/erreur_405.jpg')}}">
+	</main>
+
+{% endblock %}

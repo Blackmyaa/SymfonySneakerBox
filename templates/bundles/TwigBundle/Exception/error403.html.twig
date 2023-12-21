@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès Interdit - Erreur 403
+{% endblock %}
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	<main class="text-center">
+			<h1 class="h2">Accès Interdit</h1>
+            <p>Vous n'avez pas les droits nécessaires pour accéder à cette page</p>
+			<img src="{{asset('img/Erreurs/http-403-610x406.webp')}}">
+	</main>
+
+{% endblock %}
