@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/profil', name: 'profile_')]
-
 class ProfileController extends AbstractController
 {
     #[Route('/', name: 'index')]

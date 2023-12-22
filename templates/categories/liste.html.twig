@@ -16,7 +16,7 @@
 			<h1>Liste des produits de la catégorie
 				{{ categories.nom }}</h1>
 
-			{% for produit in categories.produits %}
+			{% for produit in produits.data %}
 				<div class="col-3 mb-2">
 					<div class="card h-100">
 						<div class="card-body">
@@ -26,12 +26,18 @@
 						</div>
 					</div>
 				</div>
-
-
 			{% endfor %}
+
+			{% set path = 'categories_list' %}
+			{% set slug = categories.slug %}
+			{% set pages = produits.pages %}
+			{% set currentPage = produits.page %}
+			<div class="col-12 mt-3">
+					{% include "tools/pagination.html.twig" %}
+			</div>
 
 		</section>
 	</main>
 
-	{% include "tools/footer.html.twig" %}
+{% include "tools/footer.html.twig" %}
 {% endblock %}
