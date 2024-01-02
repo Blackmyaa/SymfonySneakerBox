@@ -52,7 +52,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(options: ['default'=> 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $cree_le = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]  //On utilise cette propriété pour pouvoir l'utiliser lors de la création d'un token pour reset le MDP
     private ?string $resetToken = null;
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Commandes::class)]

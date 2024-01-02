@@ -12,6 +12,14 @@
 	{% include "tools/userNav.html.twig" %}
 	<main class="container">
 		<section class="row">
+			{% set path = 'categories_list' %}
+			{% set slug = categories.slug %}
+			{% set pages = produits.pages %}
+			{% set currentPage = produits.page %}
+			<div class="col-12 mt-3">
+				{% include "tools/pagination.html.twig" %}
+			</div>
+
 
 			<h1>Liste des produits de la catégorie
 				{{ categories.nom }}</h1>
@@ -28,14 +36,10 @@
 				</div>
 			{% endfor %}
 
-			{% set path = 'categories_list' %}
-			{% set slug = categories.slug %}
-			{% set pages = produits.pages %}
-			{% set currentPage = produits.page %}
+			
 			<div class="col-12 mt-3">
-					{% include "tools/pagination.html.twig" %}
+				{% include "tools/pagination.html.twig" %}
 			</div>
-
 		</section>
 	</main>
 

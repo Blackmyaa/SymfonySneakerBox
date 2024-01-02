@@ -1,0 +1,18 @@
+{{form_start(formProduit)}}
+<div class="row">
+	<div class="col-6">
+		{{ form_row(formProduit.nom) }}
+		{{ form_row(formProduit.description) }}
+		{{ form_row(formProduit.prix) }}
+	</div>
+
+	<div class="col-6">
+		{{ form_row(formProduit.stock) }}
+		{{ form_row(formProduit.categories) }}
+	</div>
+</div>
+
+<div class="text-center">
+	<button type="submit" class="btn btn-primary mt-2">{{ button_label|default('Ajouter')}}</button> {# On met en place un bouton variable dont la valeur par défaut est ajouter #}
+</div>
+{{form_end(formProduit)}}

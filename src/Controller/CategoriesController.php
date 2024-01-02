@@ -29,7 +29,7 @@ class CategoriesController extends AbstractController
         $page = $request->query->getInt('page', 1);
 
         //Pour changer le numero de page dans l'affichage des résultat on va chercher le numérode page dans l'url
-        $produits = $produitsRepository->findProductPaginated($page, $categories->getSlug(), 6);
+        $produits = $produitsRepository->findProductPaginated($page, $categories->getSlug(), 8);
         //findProductPaginated(1, $categories->getSlug(), 2) (numero de page, affichage des produits, nombre de produits par page)
 
         return $this->render('categories/liste.html.twig', [

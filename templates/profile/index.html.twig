@@ -1,14 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfileController!
+{% block title %}Profil de {{app.user.nom}} {{app.user.prenom}}
 {% endblock %}
 
 {% block body %}
 	{% include "tools/userNav.html.twig" %}
 	<main class="container">
 		<section class="row">
+			<h1>Bonjour {{app.user.nom}} {{app.user.prenom}}</h1>
+			<h2>Voici vos informations:</h2>
 
-			<h1>Profil de </h1>
+			{# Ajouter les informations de l'utilisateurs et y mettre une option afin de pouvoir les modifier 			 #}
 		</section>
 	</main>
 	{% include "tools/footer.html.twig" %}

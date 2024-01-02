@@ -45,7 +45,7 @@ class ProduitsRepository extends ServiceEntityRepository
         if(empty($data)){
             return $result;
         }
-        //on calcul le noçmbre de page 
+        //on calcul le nombre de page 
         $pages= ceil($paginator->count() / $limit);
         //On va remplir le tableau
         $result['data'] = $data;

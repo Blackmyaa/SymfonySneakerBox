@@ -1,6 +1,13 @@
 {% if pages > 1 %}
     <nav>
-        <ul class="pagination">
+        <ul class="pagination" max-size="3">
+            {% if currentPage == 1 %}
+                <li class="page-item invisible">
+                    <a href="{{ path(path, {slug: slug, page: 1}) }}" class="page-link">&lt;&lt;</a>
+                </li>
+
+            {% endif %}
+            
             {% if currentPage > 1 %}
                 <li class="page-item">
                     <a href="{{ path(path, {slug: slug, page: 1}) }}" class="page-link">&lt;&lt;</a>
@@ -9,7 +16,7 @@
                     <a href="{{ path(path, {slug: slug, page: currentPage - 1}) }}" class="page-link">&lt;</a>
                 </li>
             {% else %}
-                <li class="page-item disabled">
+                <li class="page-item invisible ">
                     <a class="page-link">&lt;</a>    
                 </li>
             {% endif %}
@@ -18,19 +25,21 @@
                     <a href="{{ path(path, {slug: slug, page: page}) }}" class="page-link">{{ page }}</a>
                 </li>
             {% endfor %}
-                {% if currentPage < pages %}
-                    <li class="page-item">
-                        <a href="{{ path(path, {slug: slug, page: currentPage + 1}) }}" class="page-link">&gt;</a>
-                    </li>
-                    <li class="page-item">
-                        <a href="{{ path(path, {slug: slug, page: pages}) }}" class="page-link">&gt;&gt;</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled">
-                        <a class="page-link">&gt;</a>    
-                    </li>
-                {% endif %}
-            </li>
+            {% if currentPage < pages %}
+                <li class="page-item">
+                    <a href="{{ path(path, {slug: slug, page: currentPage + 1}) }}" class="page-link">&gt;</a>
+                </li>
+                <li class="page-item">
+                    <a href="{{ path(path, {slug: slug, page: pages}) }}" class="page-link">&gt;&gt;</a>
+                </li>
+            {% else %}
+                <li class="page-item invisible ">
+                    <a class="page-link">&gt;</a>    
+                </li>
+                <li class="page-item invisible ">
+                    <a href="{{ path(path, {slug: slug, page: pages}) }}" class="page-link">&gt;&gt;</a>
+                </li>
+            {% endif %}
         </ul>
     </nav>
 {% endif %}

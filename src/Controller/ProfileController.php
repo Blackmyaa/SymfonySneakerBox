@@ -9,7 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/profil', name: 'profile_')]
 class ProfileController extends AbstractController
 {
-    #[Route('/', name: 'index')]
+    #[Route('/{id}', name: 'index')]
     public function index(): Response
     {
         return $this->render('profile/index.html.twig', [
