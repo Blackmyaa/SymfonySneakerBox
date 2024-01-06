@@ -8,7 +8,9 @@ use App\Repository\CategoriesRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -33,6 +35,18 @@ class ProduitsFormType extends AbstractType
                         ->orderBy('c.nom', 'ASC');
                 },
                 'attr'=>['class'=>'form-control mb-2', 'placeholder' => 'Catégorie']
+            ])
+            ->add('images', FileType::class, [
+                'label'=> false,
+                'multiple'=> true,
+                'mapped'=> false,
+                'required'=>false,
+                'constraints'=> [
+                    new Count([
+                        'max'=>10,
+                        'maxMessage'=>'Vous ne pouvez télécharger que 10 Fichiers maximum'
+                    ])
+                ]
             ])
         ;
     }

@@ -1,14 +1,28 @@
 {{form_start(formProduit)}}
 <div class="row">
-	<div class="col-6">
+	<div class="col-4">
+		<h2 class="mb-2">Infos</h2>
 		{{ form_row(formProduit.nom) }}
 		{{ form_row(formProduit.description) }}
 		{{ form_row(formProduit.prix) }}
-	</div>
-
-	<div class="col-6">
 		{{ form_row(formProduit.stock) }}
 		{{ form_row(formProduit.categories) }}
+	</div>
+
+	<div class="col-8">
+
+		{# On affiche les images si on est en edition #}
+		{% if app.request.attributes.get('_route') == 'admin_products_edit' %}
+			<h2 class="mb-2">Images</h2>
+			{% for image in produit.images %}
+			
+					<img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="Images" class="mb-3">
+					<a class="btn btn-danger" href="{{ path('admin_products_delete_image', {id: image.id})}}" data-delete data-token="{{csrf_token('delete' ~ image.id) }}">&lt- Supprimer</a>
+
+			{% endfor %}
+		{% endif %}
+
+		{{ form_row(formProduit.images) }}
 	</div>
 </div>
 

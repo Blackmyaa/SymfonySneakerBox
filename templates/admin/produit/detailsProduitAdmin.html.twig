@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Details de {{produits.nom}}
+{% endblock %}
+
+{% block body %}
+            {% include "tools/dashNav.html.twig" %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <h1 class="h2 col-12">Details de {{produits.nom}}:</h1>
+                <div class="row">
+                    <div class="col-8">
+                        <p>{{ produits.description }}</p>
+                        <div>Univers:
+                        {% if produits.categories.parent is same as NULL %}
+                            Pas renseigné
+                        {% else %}
+                            {{produits.categories.parent.nom }}
+                        {% endif %}
+                        </div>
+                        <div>Catégorie:
+                            {{produits.categories.nom }}
+                        </div>
+                        <div>Prix:
+                            {{produits.prix / 100 }}€
+                        </div>
+                        <div>Stock:
+                            {{ produits.stock }}
+                        </div>                
+                    </div>
+                    <div class="col-4">
+                        <div>
+                            <a href="/admin/produits/edition/{{produits.id}}" class="btn btn-secondary mt-3">Modifier {{produits.nom}}</a>
+                        </div>
+                        <div>
+                            <a href="" class="btn btn-danger mt-3">Supprimer {{produits.nom}}</a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
