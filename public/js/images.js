@@ -10,7 +10,6 @@ for (let link of links) {
         // On demande confirmation
         if (confirm("Voulez-vous supprimer cette image ?")) {
             // On envoie la requête ajax
-            console.log(this.getAttribute("href"))
             fetch(this.getAttribute("href"), {
                 method: "DELETE",
                 headers: {

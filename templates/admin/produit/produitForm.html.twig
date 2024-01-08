@@ -1,6 +1,6 @@
 {{form_start(formProduit)}}
 <div class="row">
-	<div class="col-4">
+	<div class="col-5">
 		<h2 class="mb-2">Infos</h2>
 		{{ form_row(formProduit.nom) }}
 		{{ form_row(formProduit.description) }}
@@ -9,7 +9,7 @@
 		{{ form_row(formProduit.categories) }}
 	</div>
 
-	<div class="col-8">
+	<div class="col-7">
 
 		{# On affiche les images si on est en edition #}
 		{% if app.request.attributes.get('_route') == 'admin_products_edit' %}

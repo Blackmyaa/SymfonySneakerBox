@@ -9,7 +9,10 @@
                 <h1 class="h2 col-12">Details de {{produits.nom}}:</h1>
                 <div class="row">
                     <div class="col-8">
-                        <p>{{ produits.description }}</p>
+                        <p class="col-6">
+                            {{ produits.description }}
+                        </p>
+
                         <div>Univers:
                         {% if produits.categories.parent is same as NULL %}
                             Pas renseigné
