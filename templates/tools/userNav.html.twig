@@ -8,6 +8,13 @@
 		<a class="nav-link text-white active" aria-current="page" href="/">Accueil</a>
 	</li>
 	{% if app.user %}
+
+		{% if is_granted('ROLE_PRODUCT_ADMIN') %}
+			<li class="nav-item">
+				<a class="nav-link text-white" href="/admin/MonDashboard">Administration</a>
+			</li>
+		{% endif %}
+		
 		<li class="nav-item">
 			<a class="nav-link text-white" href="/profil/{id}">Mon Compte</a>
 		</li>

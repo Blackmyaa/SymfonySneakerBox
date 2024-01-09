@@ -5,7 +5,8 @@
 
 
 {% block body %}
-	{% include "tools/userNav.html.twig" %}
+
+>	{% include "tools/userNav.html.twig" %}
 	<main class="container">
 		<div class="col-lg-6 mx-auto">
 			<div class="border border-2 border-dark rounded-4 mt-5">
@@ -19,19 +20,19 @@
 			</div>
 		</div>
 
-		<section class="row">
+		<section class="row mt-2">
 			{% for category in categories %}
 				{% if category.parent == null %}
 					<div class="col-12">
 						<h2>{{ category.nom }}</h2>
 					</div>
 				{% else %}
-					<div class="col-3">
+					<div class="col-lg-3 col-md-3 col-sm-3 col-6 mt-2">
 
-						<div class="card h-100 border-dark">
+						<div class="card h-100 border-dark" id="card">
 							<div class="card-body">
 								<h5 class="card-title">{{category.nom}}</h5>
-								<a href="{{ path('categories_list', {slug: category.slug})}}" class="btn btn-primary">Voir les produits</a>
+								<a href="{{ path('categories_list', {slug: category.slug})}}" class="btn btn-primary">Voir</a>
 							</div>
 						</div>
 					</div>

@@ -25,7 +25,7 @@
 				{{ categories.nom }}</h1>
 
 			{% for produit in produits.data %}
-				<div class="col-3 mb-2">
+				<div class="col-lg-3 col-md-3 col-sm- col-6 mb-2">
 					<div class="card h-100">
 						<img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" class="card-img-top" alt="{{produit.nom}}">
 						<div class="card-body">

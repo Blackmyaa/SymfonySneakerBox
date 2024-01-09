@@ -4,19 +4,32 @@
 {% endblock %}
 
 {% block body %}
+<style>
+	@media(max-width:490px){
+
+        .small-screen{
+            display: none;
+        }
+    }
+    @media(max-width:328px){
+        .xsmall-screen{
+            display: none;
+            }
+    }
+</style>
             {% include "tools/dashNav.html.twig" %}
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container">
             {% include "tools/messageFlash.html.twig" %}
 
                 <h1 class="h2">Administration des Produits:</h1>
                 <div class="row mt-3">
                     <div class="col-lg-12">
                         <div class="row">
-                            <div class="col-10">
+                            <div class="col-lg-10 col-md-10">
                                 <h3 class="text-center text-decoration-underline mb-5">Liste des produits:</h3>
                             </div>
                             
-                            <div class="col-2">
+                            <div class="col-lg-2 col-md-2">
                                 <a href="/admin/produits/ajout" class="btn btn-success mt-3">Ajouter un produit</a>
                             </div>
                         </div>
@@ -25,9 +38,10 @@
                             <thead>
                                 <tr>
                                     <th scope="col" class="text-center" class="text-center">Nom</th>
-                                    <th scope="col" class="text-center">Description</th>
+                                    <th scope="col" class="text-center xsmall-screen">Photo</th>
+                                    <th scope="col" class="text-center small-screen">Description</th>
                                     <th scope="col" class="text-center">Stock</th>
-                                    <th scope="col" class="text-center">Prix</th>
+                                    <th scope="col" class="text-center small-screen">Prix</th>
                                     <th scope="col" class="text-center">Fiche Produit</th>
                                 </tr>
                             </thead>
@@ -35,9 +49,12 @@
                             {% for produit in produit %}
                                 <tr>
                                     <th scope="row" class="text-center">{{produit.nom|capitalize}}</th>
-                                    <td class="text-center">{{produit.description|slice(0,50)}}</td>
+                                    <td class="text-center xsmall-screen">
+                                        <img class="" src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" alt="{{produit.images[0].nom}}" width=80px>
+                                    </td>
+                                    <td class="text-center small-screen">{{produit.description|slice(0,50)}}</td>
                                     <td class="text-center">{{produit.stock}}</td>
-                                    <td class="text-center">{{produit.prix / 100 }}€</td>
+                                    <td class="text-center small-screen">{{produit.prix / 100 }}€</td>
                                     <td class="text-center">
                                         <a type="button" class="btn btn-secondary text-white" href="/admin/produits/{{produit.slug}}">
                                             Détails
@@ -46,14 +63,9 @@
                                 </tr>
                             {% endfor %}
                             </tbody>
-
                         </table>
                     </div>
-
-                    
                 </div>
-                
-                
             </main>
         </div>
     </div>

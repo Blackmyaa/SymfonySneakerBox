@@ -24,7 +24,7 @@ class ProduitsFormType extends AbstractType
         $builder
             ->add('nom', TextareaType::class, ['label' => 'Nom','attr'=> ['class'=>'form-control mb-2', 'placeholder' => 'Nom du produit']])
             ->add('description', TextareaType::class, ['label' => 'Description','attr'=> ['class'=>'form-control mb-2', 'placeholder' => 'Description']])
-            ->add('prix', MoneyType::class, ['label' => 'Prix','attr'=> ['class'=>'form-control mb-2', 'placeholder' => 'Prix']])
+            ->add('prix', MoneyType::class, ['label' => false,'attr'=> ['class'=>'form-control mb-2', 'placeholder' => 'Prix']])
 
             //Le moneyType fait que dans le formulaire le € va apparaitre dans le label
             
@@ -59,14 +59,14 @@ class ProduitsFormType extends AbstractType
                 'multiple'=> true,
                 'mapped'=> false,
                 'required'=>false,
-                'constraints'=> [
-                    new All( // On rajoute le new All pour pouvoir ajouter plusieurs images simultanément car le new Image ne permet d'en ajouter qu'une à la fois.
-                        new Image([
-                            'maxWidth'=>1280,
-                            'maxWidthMessage'=>'L\'image doit faire moins de {{ max_width }} pixels de largeur',
-                        ])
-                    )
-                ]
+                // 'constraints'=> [
+                //     new All( // On rajoute le new All pour pouvoir ajouter plusieurs images simultanément car le new Image ne permet d'en ajouter qu'une à la fois.
+                //         new Image([
+                //             'maxWidth'=>1920,
+                //             'maxWidthMessage'=>'L\'image doit faire moins de {{ max_width }} pixels de largeur',
+                //         ])
+                //     )
+                // ]
             ])
         ;
     }
