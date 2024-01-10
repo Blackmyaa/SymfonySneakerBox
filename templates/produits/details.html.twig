@@ -59,9 +59,9 @@
 					€</div>
 
                 {% if produits.stock > 0 %}
-                    <a href="#" class="btn btn-success mt-2">Ajouter au panier</a>
+                    <a href="{{path('cart_add', {id: produits.id})}}" class="btn btn-success mt-2">Ajouter au panier</a>
                 {% else %}
-                    <p class="text-danger">Produit momentanément en rupture de stock</p>
+                    <p class="text-danger">Produit momentanément indisponible</p>
                 {% endif %}
                 
 			</div>

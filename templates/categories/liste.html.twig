@@ -29,9 +29,10 @@
 					<div class="card h-100">
 						<img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" class="card-img-top" alt="{{produit.nom}}">
 						<div class="card-body">
-							<h5 class="card-title">{{produit.nom}}</h5>
+							<h5 class="card-title">{{produit.nom}} {{produit.prix / 100}}€</h5>
 							<p class="card-text">{{produit.description}}</p>
-							<a href="{{ path('produits_details', {slug: produit.slug}) }}" class="btn btn-primary">voir les détails</a>
+							<a href="{{ path('produits_details', {slug: produit.slug}) }}" class="btn btn-primary">Voir</a>
+							<a href="{{path('cart_add', {id: produit.id})}}" class="btn btn-success">Ajouter au panier</a>
 						</div>
 					</div>
 				</div>
