@@ -29,7 +29,7 @@ class Commandes
     #[ORM\JoinColumn(nullable: false)]
     private ?Users $users = null;
 
-    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: DetailCommande::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'commande', targetEntity: DetailCommande::class, orphanRemoval: true, cascade: ['persist'])]
     private Collection $detailCommandes;
 
     public function __construct()
