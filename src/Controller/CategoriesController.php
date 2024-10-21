@@ -28,8 +28,10 @@ class CategoriesController extends AbstractController
         //On utilise la fonction créée dans le repository pour afficher la quete en fixant les parametres
         $page = $request->query->getInt('page', 1);
 
-        //Pour changer le numero de page dans l'affichage des résultat on va chercher le numérode page dans l'url
+        //Pour changer le numero de page dans l'affichage des résultat on va chercher le numéro de page dans l'url
         $produits = $produitsRepository->findProductPaginated($page, $categories->getSlug(), 8);
+
+        // $produits = $produitsRepository->findProductPaginated($page, $categories->getSlug(), 8);
         //findProductPaginated(1, $categories->getSlug(), 2) (numero de page, affichage des produits, nombre de produits par page)
 
         return $this->render('categories/liste.html.twig', [

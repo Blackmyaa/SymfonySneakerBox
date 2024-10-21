@@ -1,6 +1,6 @@
 {{form_start(formProduit)}}
 <div class="row">
-	<div class="col-lg-5 col-md-5">
+	<div class="col-lg-5 col-md-5 border-dark border-end">
 		<h2 class="mb-2">Infos</h2>
 		{{ form_row(formProduit.nom) }}
 		{{ form_row(formProduit.description) }}
@@ -9,21 +9,39 @@
 		{{ form_row(formProduit.categories) }}
 	</div>
 
-	<div class="col-lg-7 col-md-7">
+	<div class="col-lg-7 col-md-7 border-dark border-start">
 
 		{# On affiche les images si on est en edition #}
 		{% if app.request.attributes.get('_route') == 'admin_products_edit' %}
 			<h2 class="mb-2">Images</h2>
-			{% for image in produit.images %}
+				<div class="row">
+					{% for image in produit.images %}
+						<div class="card mb-3" style="width: 150px;">
+							<img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="Images" class="card-img-top">
+							<div class="card-body">
+								<a class="btn btn-danger" href="{{ path('admin_products_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
+							</div>
+						</div>
+					
+							{# <img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="Images" class="mb-3">
+							<a class="btn btn-danger" href="{{ path('admin_products_delete_image', {id: image.id})}}" data-delete data-token="{{csrf_token('delete' ~ image.id) }}">Supprimer</a> #}
+					{% endfor %}
+				</div>
 			
-					<img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="Images" class="mb-3">
-					<a class="btn btn-danger" href="{{ path('admin_products_delete_image', {id: image.id})}}" data-delete data-token="{{csrf_token('delete' ~ image.id) }}">&lt- Supprimer</a>
-
-			{% endfor %}
+			{% if produit.images|length >= 10 %}
+				<div class="fs-6 fw-bold">Vous avez atteint le nombre maximum d'images (10)</div>
+				<div class="invisible">				
+					{{ form_row(formProduit.images) }}
+				</div>
+			{% else %}
+				{{ form_row(formProduit.images) }}
+			{% endif %}
 		{% endif %}
-
-		{{ form_row(formProduit.images) }}
+		{% if app.request.attributes.get('_route') == 'admin_products_add' %}
+			{{ form_row(formProduit.images) }}
+		{% endif %}
 	</div>
+
 </div>
 
 <div class="text-center">

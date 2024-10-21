@@ -23,7 +23,7 @@ class ProduitsRepository extends ServiceEntityRepository
     }
 
     //fonction qui va gerer la pagination des résultats
-    public function findProductPaginated(int $page, string $slug, int $limit = 6): array
+    public function findProductPaginated(int $page, string $slug, int $limit = 8): array // limite modifiable également dans le categoriesController
     {
         $limit = abs($limit);
 
@@ -56,6 +56,7 @@ class ProduitsRepository extends ServiceEntityRepository
 
         return $result;
     }
+
 //    /**
 //     * @return Produits[] Returns an array of Produits objects
 //     */

@@ -6,6 +6,7 @@ use App\Entity\Images;
 use App\Entity\Produits;
 use App\Form\ProduitsFormType;
 use App\Service\PictureService;
+use App\Form\ProduitsEditFormType;
 use App\Repository\ProduitsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,7 +94,7 @@ class AdminProduitController extends AbstractController
         
         
         //On crée le formulaire
-        $formProduit = $this->createForm(ProduitsFormType::class, $produit);
+        $formProduit = $this->createForm(ProduitsEditFormType::class, $produit);
         
         //On traite la requete
         $formProduit->handleRequest($request);
@@ -169,6 +170,7 @@ class AdminProduitController extends AbstractController
         }
 
         return new JsonResponse(['error' => 'Token invalide'], 400);
+        
     }
 
     #[Route('/{slug}', name: 'details')]

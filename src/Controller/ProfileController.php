@@ -2,18 +2,29 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Commandes;
+use App\Repository\CommandesRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/profil', name: 'profile_')]
 class ProfileController extends AbstractController
 {
-    #[Route('/{id}', name: 'index')]
-    public function index(): Response
+    #[Route('/', name: 'index')]
+    public function index(CommandesRepository $commandeRepo): Response
     {
+        $user = $this->getUser();
+
+        if ($user) {
+            $userId = $user->getId();
+        }
+
+        $commandes=$commandeRepo->findBy(['users'=>$userId]);
+
         return $this->render('profile/index.html.twig', [
             'controller_name' => 'Profile de l\'utilisateur',
+            'commandes' => $commandes
         ]);
     }
 

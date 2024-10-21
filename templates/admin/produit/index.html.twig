@@ -5,12 +5,20 @@
 
 {% block body %}
 <style>
-	@media(max-width:490px){
+	@media(max-width:767px){
+
+        .medium-screen{
+            display: none;
+        }
+    }
+
+    @media(max-width:434px){
 
         .small-screen{
             display: none;
         }
     }
+
     @media(max-width:328px){
         .xsmall-screen{
             display: none;
@@ -39,7 +47,7 @@
                                 <tr>
                                     <th scope="col" class="text-center" class="text-center">Nom</th>
                                     <th scope="col" class="text-center xsmall-screen">Photo</th>
-                                    <th scope="col" class="text-center small-screen">Description</th>
+                                    <th scope="col" class="text-center medium-screen">Description</th>
                                     <th scope="col" class="text-center">Stock</th>
                                     <th scope="col" class="text-center small-screen">Prix</th>
                                     <th scope="col" class="text-center">Fiche Produit</th>
@@ -52,7 +60,7 @@
                                     <td class="text-center xsmall-screen">
                                         <img class="" src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" alt="{{produit.images[0].nom}}" width=80px>
                                     </td>
-                                    <td class="text-center small-screen">{{produit.description|slice(0,50)}}</td>
+                                    <td class="text-center medium-screen">{{produit.description|slice(0,50)}}</td>
                                     <td class="text-center">{{produit.stock}}</td>
                                     <td class="text-center small-screen">{{produit.prix / 100 }}€</td>
                                     <td class="text-center">

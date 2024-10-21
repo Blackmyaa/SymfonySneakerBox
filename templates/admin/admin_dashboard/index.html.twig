@@ -8,6 +8,127 @@
 				<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 					<h1 class="h2">Dashboard</h1>
 				</div>
+				<div class="row">
+					<div class="col-10 mx-auto my-auto border border-danger border-5 rounded-2 py-2 px-2 mb-2">
+						<h2>Derniers events</h2>
+						<div class="row">
+
+						{# dernier produit ajouté #}
+							<div class="col-lg-6 col-md-6">
+								<div class="row">
+									<div class="mx-2 col-4">
+										<h5>Produit Ajouté</h5>
+									</div>
+									<div class="mx-2 col-4">
+										<input readonly value="{{lastProduit.nom}}">
+									</div>
+									<div class="mx-2 col-4">
+										<h5></h5>
+									</div>
+									<div class="mx-2 col-4">
+										<input readonly value="{{lastProduit.categories.parent.nom}}">
+									</div>
+									<div class="mx-2 col-4">
+										<h5></h5>
+									</div>
+									<div class="mx-2 col-4">
+										<input readonly value="{{lastProduit.categories.nom}}">
+									</div>
+								</div>
+							</div>
+
+						{# derniere vente et utilisateur ajoutés #}
+							<div class="col-lg-6 col-md-6">
+								<div class="row">
+									<div class="mx-2 col-4">
+										<h5>Ventes</h5>
+									</div>
+									<div class="mx-2 col-4">
+										<input readonly value="montant derniere vente">
+									</div>
+									<div class="mx-2 col-4">
+										<h5>Utilisateur inscrit</h5>
+									</div>
+									<div class="mx-2 col-4">
+										<input readonly value="{{lastUser.nom}} {{lastUser.prenom}}">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-1"></div>
+
+					<div class="col-lg-4 col-md-3 col-sm-3 col-6 border-dark border border-5 rounded-2 py-2 px-2">
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="form-label">Nombre de produits différents:</label>
+								<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" readonly value="{{nombreRef}}">
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="form-label">Quantité de produits:</label>
+								<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" readonly value="{{stockTotal}} {{pieces}}">
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="form-label">Prix de vente total:</label>
+								<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" readonly value="{{prixTotal}}€">
+							</div>
+						</div>
+
+						<div class="col-lg-12">
+							<div class="mb-3">
+								<label class="form-label">Prix de vente moyen:</label>
+								<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" readonly value="{{prixMoyen}}€/article">
+							</div>
+						</div>
+					</div>
+
+					<div class="col-1"></div>
+
+					<div class="col-lg-5 col-md-4 col-sm-4 col-6 border-warning border border-5 rounded-2 py-2 px-2">
+						<h2>Compteur de visites</h2>
+						<div class="row">
+							
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-primary border border-5 rounded-2 py-2 px-2"><h4>Jour J</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-danger border border-5 rounded-2 py-2 px-2"><h4>Jour J-1</h4></div>
+							<div class="col-12 my-2"></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-warning border border-5 rounded-2 py-2 px-2"><h4>Semaine S</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-success border border-5 rounded-2 py-2 px-2"><h4>Semaine S-1</h4></div>
+							<div class="col-12 my-2"></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-secondary border border-5 rounded-2 py-2 px-2"><h4>Mois M</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-info border border-5 rounded-2 py-2 px-2"><h4>Mois M-1</h4></div>
+							<div class="col-12 my-2"></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-primary-emphasis border border-5 rounded-2 py-2 px-2"><h4>Année A</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-danger-emphasis border border-5 rounded-2 py-2 px-2"><h4>Année A-1</h4></div>
+						</div>
+					</div>
+
+					<div class="col-1"></div>
+
+					<div class="col-12 my-2"></div>
+
+					<div class="col-2"></div>
+
+					<div class="col-lg-4 col-md-3 col-sm-3 col-6 border-success border border-5 rounded-2 py-2 px-2">
+						<h2>Ventes</h2>
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-4 border-primary border border-5 rounded-2 py-2 px-2"><h4>Jour J</h4></div>
+							<div class="col-lg-6 col-md-6 col-sm-4 border-danger border border-5 rounded-2 py-2 px-2"><h4>Jour J-1</h4></div>
+							<div class="col-12 my-2"></div>
+							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-warning border border-5 rounded-2 py-2 px-2"><h4>Semaine S</h4></div>
+							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-success border border-5 rounded-2 py-2 px-2"><h4>Semaine S-1</h4></div>
+							<div class="col-12 my-2"></div>
+							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-secondary border border-5 rounded-2 py-2 px-2"><h4>Mois M</h4></div>
+							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-info border border-5 rounded-2 py-2 px-2"><h4>Mois M-1</h4></div>
+						</div>
+					</div>
+				</div>
 			</main>
 		</div>
 	</div>

@@ -58,7 +58,7 @@ class OrdersController extends AbstractController
         $manager->persist($order);
         $manager->flush();
 
-        $this->addFlash('success', 'commande envoyée avec succès');
+        $this->addFlash('success', 'Commande validée');
 
         $session->remove('panier');
 

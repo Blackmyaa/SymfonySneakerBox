@@ -17,8 +17,23 @@
 		{% block javascripts %}{% endblock %}
 	</head>
 	<body>
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				height: 100%;
+			}
+
+			main {
+				min-height: 100%;
+				position: relative;
+				/* Hauteur du pied de page */
+			}
+		</style>
 		{% block body %}
 			
 		{% endblock %}
+		
 	</body>
 </html>

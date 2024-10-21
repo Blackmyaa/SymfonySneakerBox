@@ -3,12 +3,12 @@
 {% endblock %}
 
 <header class="navbar sticky-top bg-danger flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-	<a class="bg-dark navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">MySneakersBox</a>
+	<a class="bg-dark navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="/admin/MonDashboard">MySneakersBox</a>
 
 	<ul class="navbar-nav flex-row d-md-none">
 		<li class="nav-item text-nowrap">
 			<button class="nav-link px-3 bg-danger" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-				<div class="text-dark">M</div>
+				<div class="text-white">MsB</div>
 			</button>
 		</li>
 	</ul>
@@ -23,88 +23,75 @@
 		<div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary h-100">
 			<div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
 				<div class="offcanvas-header">
-					<h5 class="offcanvas-title" id="sidebarMenuLabel">MBENZEDI Corp</h5>
+					<h5 class="offcanvas-title" id="sidebarMenuLabel">MySneakersBox</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
 				</div>
-				<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
 						<span>Gestion des Produits/ventes</span>
-						<a class="link-secondary" href="#" aria-label="Add a new report">
-							<svg class="bi"><use xlink:href="#plus-circle"/></svg>
-						</a>
 					</h6>
-				<div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
-					<ul class="nav flex-column">
-						<li class="nav-item">
-							<a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/admin/MonDashboard">
-								<svg class="bi"><use xlink:href="#house-fill"/></svg>
-								Dashboard
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link d-flex align-items-center gap-2" href="/admin/categorie">
-								<svg class="bi"><use xlink:href="#file-earmark"/></svg>
-								Gestion des catégories
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link d-flex align-items-center gap-2" href="/admin/produits">
-								<svg class="bi"><use xlink:href="#cart"/></svg>
-								Gestion des produits
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link d-flex align-items-center gap-2" href="/admin/utilisateurs">
-								<svg class="bi"><use xlink:href="#people"/></svg>
-								Gestions des utilisateurs
-							</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link d-flex align-items-center gap-2" href="#">
-								<svg class="bi"><use xlink:href="#graph-up"/></svg>
-								Voir les commandes
-							</a>
-						</li>
-					</ul>
+					<div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+						<ul class="nav flex-column">
+							<li class="nav-item">
+								<a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="/admin/MonDashboard">
+									Dashboard
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-flex align-items-center gap-2" href="/admin/categorie">
+									Gestion des catégories
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-flex align-items-center gap-2" href="/admin/produits">
+									Gestion des produits
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link d-flex align-items-center gap-2" href="#">
+									Voir les commandes
+								</a>
+							</li>
+						</ul>
+					<hr class="my-3">
 
 					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
 						<span>Gestion des Admins</span>
-						<a class="link-secondary" href="#" aria-label="Add a new report">
-							<svg class="bi"><use xlink:href="#plus-circle"/></svg>
-						</a>
 					</h6>
 					<ul class="nav flex-column mb-auto">
 						<li class="nav-item">
 							<a class="nav-link d-flex align-items-center gap-2" href="#">
-								<svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
 								Liste des Admins
 							</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link d-flex align-items-center gap-2" href="#">
-								<svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
 								Ajouter un Admin
 							</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link d-flex align-items-center gap-2" href="#">
-								<svg class="bi"><use xlink:href="#file-earmark-text"/></svg>
 								Modifier un Admin
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link d-flex align-items-center gap-2" href="/admin/utilisateurs">
+								Gestions des utilisateurs
 							</a>
 						</li>
 					</ul>
 
 					<hr class="my-3">
-
+					<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+						<span>Accueil/Deco</span>
+					</h6>					
 					<ul class="nav flex-column mb-auto">
 						<li class="nav-item">
 							<a class="nav-link d-flex align-items-center gap-2" href="/">
-								<svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
 								Retour à l'accueil
 							</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link d-flex align-items-center gap-2" href="/deconnexion">
-								<svg class="bi"><use xlink:href="#door-closed"/></svg>
 								Se Déconnecter
 							</a>
 						</li>

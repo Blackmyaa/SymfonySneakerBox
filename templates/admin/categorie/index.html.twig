@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Catégories{% endblock %}
+
+{% block body %}
+<style>
+	@media(max-width:429px){
+
+    .small-screen{
+        display: none;
+    }
+}
+</style>
+    {% include "tools/dashNav.html.twig" %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            {% include "tools/messageFlash.html.twig" %}
+
+                <h1 class="h2">Administration des Catégories:</h1>
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10">
+                                <h3 class="text-center text-decoration-underline mb-5">Liste des catégories:</h3>
+                            </div>
+                            
+                            <div class="col-lg-2 col-md-2">
+                                <a href="#" class="btn btn-success mt-3">Ajouter catégorie</a>
+                            </div>
+                        </div>
+                        
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="text-center" class="text-center">Id</th>
+                                    <th scope="col" class="text-center">Nom</th>
+                                    <th scope="col" class="text-center">Catégorie Parent</th>
+                                    <th scope="col" class="text-center small-screen">slug</th>
+                                    <th scope="col" class="text-center">+ d'infos</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for categorie in categories %}
+                                <tr>
+                                    <th scope="row" class="text-center">{{categorie.id}}</th>
+                                    <td class="text-center">{{categorie.nom|capitalize}}</td>
+                                    {% if categorie.parent != NULL %}
+                                        <td class="text-center">{{categorie.parent.nom|capitalize}}</td>
+                                    {% else %}
+                                        <td class="text-center">N'en possède pas</td>
+                                    {% endif %}
+                                    <td class="text- small-screen">{{categorie.slug}}</td>
+                                    <td class="text-center">
+                                        <a type="button" class="btn btn-secondary text-white" href="{{ path('admin_categorie_list', {slug: categorie.slug})}}">
+                                            Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+
+                    
+                </div>
+                
+                
+            </main>
+        </div>
+    </div>
+{% endblock %}

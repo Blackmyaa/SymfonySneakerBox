@@ -16,9 +16,9 @@
 	{% include "tools/userNav.html.twig" %}
 	<main class="container">
 		<section class="row">
-			<h1 class="mb-4">Détails de {{ produits.nom }}</h1>
+			<h1 class="mt-5 mb-4">Détails de {{ produits.nom }}</h1>
 
-			<div class="col-6">
+			<div class="col-6 border-dark border-end">
 				<div id="carouselExampleIndicators" class="carousel slide">
 					<div class="carousel-indicators">
 						{% for iteration in 1..produits.images|length %}
@@ -48,7 +48,7 @@
 				</div>
 			</div>
 
-			<div class="col-6">
+			<div class="col-6 border-dark border-start">
 				<p>{{ produits.description }}</p>
 				<div>Univers:
 					{{produits.categories.parent.nom }}</div>

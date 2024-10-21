@@ -34,7 +34,7 @@ class JWTService
         $base64Header = str_replace(['+', '/', '='], ['-', '_', ''], $base64Header);
         $base64Payload = str_replace(['+', '/', '='], ['-', '_', ''], $base64Payload);
 
-        //On génére la signature
+        //On génère la signature
         $secret = base64_encode($secret);
 
         $signature = hash_hmac('sha256', $base64Header . '.' . $base64Payload, $secret, true); 
@@ -62,7 +62,7 @@ class JWTService
         ) === 1;
     }
 
-    // On vérifie la validité du token
+    // On vérifie la validité du token (expiré ou pas)
 
     // on recupere le payload
 
@@ -70,7 +70,7 @@ class JWTService
         //on démonte le token
         $array = explode('.', $token);
 
-        //ondécde le payload
+        //ondécode le payload
         $payload = json_decode(base64_decode($array[1]), true);
 
         return $payload;

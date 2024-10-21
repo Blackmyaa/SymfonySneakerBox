@@ -8,7 +8,7 @@ for (let link of links) {
         e.preventDefault();
 
         // On demande confirmation
-        if (confirm("Voulez-vous supprimer cette image ?")) {
+        if (confirm("Voulez-vous supprimer cette image?")) {
             // On envoie la requête ajax
             fetch(this.getAttribute("href"), {
                 method: "DELETE",

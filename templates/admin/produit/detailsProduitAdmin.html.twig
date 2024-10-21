@@ -6,13 +6,12 @@
 {% block body %}
             {% include "tools/dashNav.html.twig" %}
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <h1 class="h2 col-12">Details de {{produits.nom}}:</h1>
+                <h1 class="h2 col-12 mb-5">Details de {{produits.nom}}:</h1>
                 <div class="row">
-                    <div class="col-8">
-                        <p class="col-6">
+                    <div class="col-lg-6 border-dark border-end">
+                        <p>Description:<br>
                             {{ produits.description }}
                         </p>
-
                         <div>Univers:
                         {% if produits.categories.parent is same as NULL %}
                             Pas renseigné
@@ -26,15 +25,56 @@
                         <div>Prix:
                             {{produits.prix / 100 }}€
                         </div>
-                        <div>Stock:
+                        <div>Date de derniere vente:
+                            {# {{ produits.id.commandes.createdAt.format('D d/m/Y h:m:s') }} + nombre de ventes #}
+                        </div>
+                        <div>Nombre de ventes:
+                            {# {{ produits.commandes.id }} + nombre de ventes #}
+                        </div>
+                        <div>Stock Initial:
+                            {{ produits.stock }} + nombre de ventes
+                        </div>
+                        <div>Stock actuel:
                             {{ produits.stock }}
-                        </div>                
+                        </div>
+                        <div>Date d'entrée:
+                            {{ produits.createdAt.format('D d/m/Y h:m:s') }}
+                        </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-lg-6 border-dark border-start">
+                        <div class="mt-5">
+                            <div id="carouselExampleIndicators" class="carousel slide">
+                                <div class="carousel-indicators">
+                                    {% for iteration in 1..produits.images|length %}
+                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ iteration - 1 }}" {{ (loop.first) ? 'class="active" aria-current="true"'}} aria-label="Slide {{ iteration }}"></button>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="col-5 mx-auto">
+                                    <div class="carousel-inner">
+                                        {% for image in produits.images %}
+                                            <div class="carousel-item {{ (loop.first) ? 'active' : '' }}">
+                                                <img src="{{asset('uploads/produits/mini/300x300-') ~ image.nom}}" class="d-block w-100" alt="{{ produits.nom }}">
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
                         <div>
                             <a href="/admin/produits/edition/{{produits.id}}" class="btn btn-secondary mt-3">Modifier {{produits.nom}}</a>
-                        </div>
-                        <div>
                             <a href="" class="btn btn-danger mt-3">Supprimer {{produits.nom}}</a>
                         </div>
                     </div>

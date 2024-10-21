@@ -55,17 +55,18 @@ class RegistrationController extends AbstractController
             //On génére le Token
 
             $token = $jwt->generate($header, $payload, $this->getParameter('app.jwtsecret'));
-
+            
             //On envoie le mail de confirmation
             $mail->send(
-            'no-reply@mysneakerbox.fr',
-            $user->getEmail(),
-            'Votre compte MySneakersBox a été créé',
-            'register',
-            [
-            'user'=>$user,
-            'token'=>$token
-            ]);
+                'no-reply@mysneakerbox.fr',
+                $user->getEmail(),
+                'Votre compte MySneakersBox a été créé',
+                'register',
+                [
+                'user'=>$user,
+                'token'=>$token
+                ]
+            );
 
             return $userAuthenticator->authenticateUser(
                 $user,
@@ -102,7 +103,7 @@ class RegistrationController extends AbstractController
         }
         
         //Si une des conditions n'est pas respectée
-        $this->addFlash('danger', 'le token est invalide ou a expiré');
+        $this->addFlash('danger', 'le token est invalide ou a expiré!');
 
         return $this->redirectToRoute('app_login');
     }
@@ -119,7 +120,7 @@ class RegistrationController extends AbstractController
 
         if($user->getIsVerified()){
             $this->addFlash('warning', 'Cet utilisateur est déjà activé');
-            return $this->redirectToRoute('profile_index');    
+            return $this->redirectToRoute('profile_index', array('id' => $user->getId()));    
         }
 
         // On génère le JWT de l'utilisateur

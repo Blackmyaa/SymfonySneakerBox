@@ -35,12 +35,12 @@ class Produits
 
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Assert\NotBlank(message: 'La description du produit ne peut pas être vide')] //Contrainte pour obliger à mettre une description meme si l'utilisateur bidouille la console
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')] //Contrainte pour obliger à mettre une description meme si l'utilisateur bidouille la console
     #[Assert\Length(
         min: 30,
         max: 1500,
-        minMessage: 'Le description doit faire au moins {{ limit }} caractères',
-        maxMessage:'Le description ne doit pas dépasser {{ limit }} caractères'
+        minMessage: 'La description doit faire au moins {{ limit }} caractères',
+        maxMessage:'La description ne doit pas dépasser {{ limit }} caractères'
     )]
     private ?string $description = null;
 
@@ -57,6 +57,10 @@ class Produits
     private ?Categories $categories = null;
 
     #[ORM\OneToMany(mappedBy: 'produit', cascade:['persist'], targetEntity: Images::class, orphanRemoval: true)]
+    #[Assert\Count(
+        max: 10,
+        maxMessage: 'Vous pouvez déposer {{ limit }} photos maximum',
+    )]
     private Collection $images;
 
     #[ORM\OneToMany(mappedBy: 'produit', targetEntity: DetailCommande::class)]

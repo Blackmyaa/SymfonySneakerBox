@@ -29,7 +29,7 @@ class SendMailService{
             -> htmlTemplate("email/$template.html.twig")
             -> context($context);
 
-        // Onn en voie le Mail
+        // On envoie le Mail
 
         $this->mailer->send($email);
     }

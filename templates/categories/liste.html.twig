@@ -1,10 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des produits de la catégorie
+{% block title %}Produits de la catégorie
 	{{ categories.nom }}
 {% endblock %}
 {% block stylesheets %}
-	
+	<style>
+		.max-lines{ //class pour limiter le nombre de lignes visibles sur la card de chaque produit
+			--max_lines : 3;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: var(--max_lines);
+			line-clamp: var(--max_lines);
+			-webkit-box-orient: vertical;
+		}
+	</style>
 {% endblock %}
 {% block body %}
 
@@ -21,18 +30,19 @@
 			</div>
 
 
-			<h1>Liste des produits de la catégorie
+			<h1>Produits de la catégorie
 				{{ categories.nom }}</h1>
 
 			{% for produit in produits.data %}
 				<div class="col-lg-3 col-md-3 col-sm- col-6 mb-2">
 					<div class="card h-100">
-						<img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" class="card-img-top" alt="{{produit.nom}}">
+						<a href="{{ path('produits_details', {slug: produit.slug}) }}"><img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" class="card-img-top" alt="{{produit.nom}}"></a>
 						<div class="card-body">
-							<h5 class="card-title">{{produit.nom}} {{produit.prix / 100}}€</h5>
-							<p class="card-text">{{produit.description}}</p>
+							<h5 class="card-title max-lines" style="--max_lines:1;">{{produit.nom}}</h5>
+							<h6>{{produit.prix / 100}}€</h6>
+							<p class="card-text max-lines" style="--max_lines:2;">{{produit.description}}</p>
 							<a href="{{ path('produits_details', {slug: produit.slug}) }}" class="btn btn-primary">Voir</a>
-							<a href="{{path('cart_add', {id: produit.id})}}" class="btn btn-success">Ajouter au panier</a>
+							<a href="{{ path('cart_add', {id: produit.id})}}" class="btn btn-success">Ajouter</a>
 						</div>
 					</div>
 				</div>

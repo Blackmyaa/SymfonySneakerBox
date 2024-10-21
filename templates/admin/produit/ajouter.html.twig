@@ -2,7 +2,15 @@
 
 {% block title %}Admin - Ajout de Produits
 {% endblock %}
-
+{% block stylesheets %}
+    <style>
+        @media(max-width:767px){
+            .border-dark{
+                --bs-border-opacity: 0;
+            }
+        }
+    </style>
+{% endblock %}
 {% block body %}
             {% include "tools/dashNav.html.twig" %}
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">

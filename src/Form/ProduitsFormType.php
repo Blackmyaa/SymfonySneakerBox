@@ -58,7 +58,10 @@ class ProduitsFormType extends AbstractType
                 'label'=> false,
                 'multiple'=> true,
                 'mapped'=> false,
-                'required'=>false,
+                'required'=>true,
+                'attr' => [
+                    'data-max-files' => 10 // On ajoute cette option pour le contrôle JavaScript (si besoin)
+                ],
                 // 'constraints'=> [
                 //     new All( // On rajoute le new All pour pouvoir ajouter plusieurs images simultanément car le new Image ne permet d'en ajouter qu'une à la fois.
                 //         new Image([
