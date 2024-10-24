@@ -42,6 +42,8 @@
 							<th scope="col">Numéro de commande</th>
 							<th scope="col">Date</th>
 							<th scope="col">Consulter</th>
+							<th scope="col">Facture</th>
+
 						</tr>
 					</thead>
 					{% for commande in commandes %}
@@ -50,6 +52,7 @@
 								<td>{{commande.reference}}</td>
 								<td>{{commande.createdAt.format('d/m/y h:m:s')}}</td>
 								<td class="text-center"><a class="btn btn-secondary" href="/order{{commande.reference}}/details">voir</a></td>
+								<td class="text-center"><a class="btn btn-secondary" href="/generate-pdf/{{commande.id}}">PDF</a></td>
 							</tr>
 						</tbody>
 						{% else %}

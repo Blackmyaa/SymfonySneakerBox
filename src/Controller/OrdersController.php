@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Commandes;
 use App\Entity\DetailCommande;
 use App\Repository\ProduitsRepository;
+use App\Repository\CommandesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class OrdersController extends AbstractController
 {
     #[Route('/ajout', name: 'add')]
-    public function index(SessionInterface $session, ProduitsRepository $produitsRepo, EntityManagerInterface $manager): Response
+    public function index(CommandesRepository $commandesRepository, SessionInterface $session, ProduitsRepository $produitsRepo, EntityManagerInterface $manager): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
@@ -61,7 +62,12 @@ class OrdersController extends AbstractController
         $this->addFlash('success', 'Commande validée');
 
         $session->remove('panier');
-
-        return $this->redirectToRoute('app_accueil');
+        
+        $commande = $commandesRepository->findOneBy([], ['created_at' => 'DESC']);
+        $commandeId = $commande->getId();
+    // integrer le code de la generation de pdf et mettre une redirection vers le compte client        
+    
+    return $this->redirectToRoute('generate_pdf', ['commandeId'=>$commandeId]);
     }
 }
+

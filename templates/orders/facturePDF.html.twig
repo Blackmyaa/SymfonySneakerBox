@@ -1,0 +1,53 @@
+<style>
+	body {
+		font-family: Arial, sans-serif;
+		margin: 20px;
+	}
+	h1,
+	h2,
+	h3 {
+		color: #333;
+	}
+	p {
+		line-height: 1.5;
+	}
+	.invoice-details {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.invoice-details th,
+	.invoice-details td {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+</style>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Facture</title>
+	</head>
+	<body>
+		<h1>Facture</h1>
+		<p>Nom:
+			{{ user.nom }}</p>
+		<p>Prenom:
+			{{ user.prenom }}</p>
+		<p>Email:
+			{{ user.email }}</p>
+		<p>Date de la commande:
+			{# {{ commande.createdAt }}</p> #}
+		<h2>Détails de la commande</h2>
+		<ul>
+			{% for detail in details %}
+				<li>{{ detail.produit.nom }}
+					-
+					{{ detail.quantite }}
+					x
+					{{ detail.prix / 100 }}€</li>
+			{% endfor %}
+		</ul>
+		<p>Total:
+			{{ addition }}€</p>
+	</body>
+</html>

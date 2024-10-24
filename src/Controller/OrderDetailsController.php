@@ -24,9 +24,6 @@ class OrderDetailsController extends AbstractController
 
         $commandeUtile = $detailCommandeRepo->findBy(['commande'=>$commandeId]);
 
-        //dd($commandeUtile);
-
-        // $commandeDetails = $produitsRepo->findBy(['id'=>$commandeUtile]);
         $addition = 0;
         foreach ($commandeUtile as $produit) {
             
