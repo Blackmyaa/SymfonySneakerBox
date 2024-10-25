@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Résultat de la recherche pour {{ query }}
+{% endblock %}
+
+{% block body %}
+    {% include "tools/userNav.html.twig" %}
+	<h1>Résultats de la recherche pour "{{ query }}"</h1>
+
+	{% if produits is not empty %}
+		<ul>
+			{% for produit in produits %}
+				<li>{{ produit.nom }} - {{ produit.prix / 100 }}€</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>Aucun produit trouvé pour "{{ query }}".</p>
+	{% endif %}
+
+{% endblock %}

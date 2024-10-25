@@ -2,6 +2,29 @@
 	<link href="{{asset('css/userNav.css')}}" rel="stylesheet">
 {% endblock %}
 
+{% block javascripts %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const form = document.querySelector('form');
+			form.addEventListener('keypress', function(event) {
+				if (event.key === 'Enter') {
+					form.submit();
+				}
+			});
+		});
+	</script>
+
+	<script>
+		document.getElementById('searchForm').addEventListener('submit', function(event) {
+			var query = document.getElementById('searchQuery').value.trim();
+			if (query === '') {
+				event.preventDefault(); // Empêche la soumission du formulaire
+				window.location.href = "{{ path('search_form') }}";
+			}
+		});
+	</script>
+{% endblock %}
+
 {# Ancien Menu 
 <ul class="nav justify-content-end bg-danger">
 	<li class="nav-item">
@@ -131,9 +154,9 @@
 		{% endif %}
 			
 		</ul>
-		<form class="d-flex" role="search">
-			<input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Search">
-			<button class="btn btn-outline-light" type="submit">Recherche</button>
+		<form id="searchForm" action="{{ path('search_product') }}" class="d-flex" role="search" method="get">
+			<input class="form-control me-2" name="query" id="searchQuery" type="search" placeholder="Recherche" aria-label="Search">
+			<button class="btn btn-outline-light" type="submit">Rechercher</button>
 		</form>
 		</div>
 	</div>

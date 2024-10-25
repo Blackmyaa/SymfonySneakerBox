@@ -57,28 +57,35 @@ class ProduitsRepository extends ServiceEntityRepository
         return $result;
     }
 
-//    /**
-//     * @return Produits[] Returns an array of Produits objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function findByQuery($query)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.nom LIKE :query OR p.description LIKE :query')
+            ->setParameter('query', '%' . $query . '%')
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Produits
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findByFilters($query, $description, $minPrice, $maxPrice)
+    {
+        $qb = $this->createQueryBuilder('p')
+            ->where('p.nom LIKE :query')
+            ->andWhere('p.description LIKE :description')
+            ->setParameters([
+                'query' => '%' . $query . '%',
+                'description' => '%' . $description . '%',
+            ]);
+
+        if ($minPrice) {
+            $qb->andWhere('p.prix/100 >= :minPrice')
+                ->setParameter('minPrice', $minPrice);
+        }
+
+        if ($maxPrice) {
+            $qb->andWhere('p.prix/100 <= :maxPrice')
+                ->setParameter('maxPrice', $maxPrice);
+        }
+
+        return $qb->getQuery()->getResult();
+    }
 }

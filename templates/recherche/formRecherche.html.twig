@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire de Recherche
+{% endblock %}
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	<main class="container">
+		<h1>Formulaire de Recherche</h1>
+
+		{{ form_start(searchForm) }}
+		<div class="row">
+			<div class="col-lg-6">
+				{{ form_row(searchForm.query) }}
+				{{ form_row(searchForm.description) }}
+			</div>
+			<div class="col-lg-6">
+				<div class="row">
+					<div class="col-lg-6">
+						{{ form_row(searchForm.minPrice) }}
+					</div>
+					<div class="col-lg-6">
+						{{ form_row(searchForm.maxPrice) }}
+					</div>
+					<div class="col-lg-4 mx-auto mt-3">
+						<button type="submit">Rechercher</button>
+					</div>
+				</div>
+			</div>
+			{{ form_end(searchForm) }}
+
+			<h2 class="mb-3 mt-3">Résultats de la recherche</h2>
+
+			{% if produits is not empty %}
+				<table class="table table-success table-striped table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Photo</th>
+							<th scope="col">Description</th>
+							<th scope="col">Prix</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						{% for produit in produits %}
+
+							<tr>
+								<td>{{ produit.nom }}</td>
+								<td>
+									<img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" alt="{{produit.images[0].nom}}" width="80px">
+								</td>
+								<td>{{ produit.description }}</td>
+								<td>{{ produit.prix / 100 }}€</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+
+			{% else %}
+				<table class="table table-success table-striped table-hover">
+					<thead>
+						<tr>
+							<th scope="col">Nom</th>
+							<th scope="col">Photo</th>
+							<th scope="col">Description</th>
+							<th scope="col">Prix</th>
+						</tr>
+					</thead>
+					<tbody>
+						<td colspan="4" class="text-center">Aucun produit trouvé pour les critères spécifiés.</td>
+					</tbody>
+				</table>
+			{% endif %}
+		</main>
+
+		{% include "tools/footer.html.twig" %}
+
+	{% endblock %}

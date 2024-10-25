@@ -19,33 +19,39 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    {% for element in data %}
+                {% if app.user %}
+                    <tbody>
+                        {% for element in data %}
+                            <tr>
+                                <td>{{ element.produit.nom }}</td>
+                                <td>{{ element.produit.prix / 100 }} €</td>
+                                <td>{{ element.quantite}}</td>
+                                <td>{{ element.quantite * element.produit.prix / 100 }} €</td>
+                                <td>
+                                    <a href="{{ path('cart_add', {id: element.produit.id}) }}" class="btn btn-success">+</a>
+                                    <a href="{{ path('cart_remove', {id: element.produit.id}) }}" class="btn btn-warning">-</a>
+                                    <a href="{{ path('cart_delete', {id: element.produit.id}) }}" class="btn btn-danger">x-x</a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">Votre panier est vide</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
                         <tr>
-                            <td>{{ element.produit.nom }}</td>
-                            <td>{{ element.produit.prix / 100 }} €</td>
-                            <td>{{ element.quantite}}</td>
-                            <td>{{ element.quantite * element.produit.prix / 100 }} €</td>
+                            <td colspan="3">Total</td>
+                            <td>{{ total / 100 }} €</td>
                             <td>
-                                <a href="{{ path('cart_add', {id: element.produit.id}) }}" class="btn btn-success">+</a>
-                                <a href="{{ path('cart_remove', {id: element.produit.id}) }}" class="btn btn-warning">-</a>
-                                <a href="{{ path('cart_delete', {id: element.produit.id}) }}" class="btn btn-danger">x-x</a>
+                                <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a>
                             </td>
                         </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="5" class="text-center">Votre panier est vide</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3">Total</td>
-                        <td>{{ total / 100 }} €</td>
-                        <td>
-                            <a href="{{ path('cart_empty') }}" class="btn btn-danger">Vider</a>
-                        </td>
-                    </tr>
+                    </tfoot>
+                {% else %}
+                    <td colspan="5" class="text-center">Vous devez être connecté pour accéder à cette page</td>
+                {% endif %}
+                    
             </table>
 		</section>
         <div class="d-flex justify-content-end">

@@ -1,53 +1,77 @@
-<style>
-	body {
-		font-family: Arial, sans-serif;
-		margin: 20px;
-	}
-	h1,
-	h2,
-	h3 {
-		color: #333;
-	}
-	p {
-		line-height: 1.5;
-	}
-	.invoice-details {
-		width: 100%;
-		border-collapse: collapse;
-	}
-	.invoice-details th,
-	.invoice-details td {
-		border: 1px solid #ddd;
-		padding: 8px;
-	}
-</style>
-
+<!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8">
+        <meta charset="UTF-8">
 		<title>Facture</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            h1,
+            h2,
+            h3 {
+                color: #333;
+            }
+            p {
+                line-height: 1.5;
+            }
+            .invoice-details {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            .invoice-details th,
+            .invoice-details td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+            table, th, td {
+                    border: 1px solid #ddd;
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: center;  /* Texte centré */
+            }
+
+            th {
+                background-color: #f2f2f2;
+            }
+        </style>
+
 	</head>
 	<body>
-		<h1>Facture</h1>
-		<p>Nom:
-			{{ user.nom }}</p>
-		<p>Prenom:
-			{{ user.prenom }}</p>
-		<p>Email:
-			{{ user.email }}</p>
-		<p>Date de la commande:
-			{# {{ commande.createdAt }}</p> #}
-		<h2>Détails de la commande</h2>
-		<ul>
-			{% for detail in details %}
-				<li>{{ detail.produit.nom }}
-					-
-					{{ detail.quantite }}
-					x
-					{{ detail.prix / 100 }}€</li>
-			{% endfor %}
-		</ul>
-		<p>Total:
-			{{ addition }}€</p>
+        <h1>Facture N°{{ commande.reference }}</h1>
+        <p>Date: {{ commande.createdAt|date('d/m/Y') }}</p>
+        <p>Client: {{ user.nom }} {{ user.prenom }}</p>
+        <p>Adresse: {{ user.adresse }} {{user.codePostal}} {{user.ville}}</p>
+		<p>Email: {{ user.email }}</p>
+		
+        <table>
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix Unitaire</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for detail in details %}
+                    <tr>
+                        <td>{{ detail.produit.nom }}</td>
+                        <td>{{ detail.quantite }}</td>
+                        <td>{{ (detail.prix / 100)|number_format(2, '.', ',') }} €</td>
+                        <td>{{ (detail.quantite * (detail.prix / 100))|number_format(2, '.', ',') }} €</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">Total</td>
+                    <td>{{ addition|number_format(2, '.', ',') }} €</td>
+                </tr>
+            </tfoot>
+        </table>
 	</body>
 </html>
