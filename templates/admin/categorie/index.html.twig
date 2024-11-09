@@ -24,7 +24,7 @@
                             </div>
                             
                             <div class="col-lg-2 col-md-2">
-                                <a href="#" class="btn btn-success mt-3">Ajouter catégorie</a>
+                                <a href="/admin/categorie/ajouter" class="btn btn-success mt-3">Ajouter catégorie</a>
                             </div>
                         </div>
                         
@@ -50,9 +50,11 @@
                                     {% endif %}
                                     <td class="text- small-screen">{{categorie.slug}}</td>
                                     <td class="text-center">
+                                    {% if categorie.parent != NULL %}
                                         <a type="button" class="btn btn-secondary text-white" href="{{ path('admin_categorie_list', {slug: categorie.slug})}}">
                                             Voir
                                         </a>
+                                    {% endif %}
                                     </td>
                                 </tr>
                             {% endfor %}

@@ -50,7 +50,8 @@ class RechercheController extends AbstractController
 
         return $this->render('recherche/formRecherche.html.twig', [
             'searchForm' => $form_recherche->createView(),
-            'produits' => $produits,        
+            'produits' => $produits,
+
         ]);
     }
 }

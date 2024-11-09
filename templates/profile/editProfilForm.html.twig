@@ -1,0 +1,142 @@
+<div class="row">
+	<div class="col-lg-6 col-md-6">
+		<div>
+			<label class="form-label col-4">Nom</label>
+				<button id="changeNameBtn" class="bg-secondary text-white">Modifier</button>
+			<input id="NomOrigine" class="form-control mb-3" readonly="true" value="{{app.user.nom}}">
+		</div>
+		<div>
+			<label class="form-label col-4">Em@il</label>
+				<button id="changeMailBtn" class="bg-secondary text-white">Modifier</button>
+			<input class="form-control mb-3" readonly="true" value="{{app.user.email}}">
+		</div>
+		<div>
+			<label class="form-label col-4">MDP</label>
+				<button id="changePasswordBtn" class="bg-secondary text-white">Modifier</button>
+			<input class="form-control mb-3" type="password" readonly="true" value="********">
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-6">
+		<div>
+			<label class="form-label col-4">Adresse</label>
+				<button id="changeAdresseBtn" class="bg-secondary text-white">Modifier</button>
+			<input class="form-control mb-3" readonly="true" value="{{app.user.adresse}}">
+		</div>
+		<div>
+			<label class="form-label col-4">Code Postal</label>
+			<input class="form-control mb-3" readonly="true" value="{{app.user.codePostal}}">
+		</div>
+		<div>
+			<label class="form-label col-4">Ville</label>
+			<input class="form-control mb-3" readonly="true" value="{{app.user.ville}}">
+		</div>
+	</div>
+</div>
+<div id="formContainer"></div>
+
+{% block Javascript %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const userId = {{ app.user.id }}; // Récupérer l'ID de l'utilisateur
+
+			document.getElementById('changePasswordBtn').addEventListener('click', function() {
+				const url = `/profil/editUser/${userId}/editMDP`; // Construire l'URL directement
+				loadForm(url);
+			});
+
+			document.getElementById('changeNameBtn').addEventListener('click', function() {
+				const url = `/profil/editUser/${userId}/editNom`; // Construire l'URL directement
+				loadForm(url);
+			});
+
+			document.getElementById('changeAdresseBtn').addEventListener('click', function() {
+				const url = `/profil/editUser/${userId}/editAdresse`; // Construire l'URL directement
+				loadForm(url);
+			});
+
+			document.getElementById('changeMailBtn').addEventListener('click', function() {
+				const url = `/profil/editUser/${userId}/editMail`; // Construire l'URL directement
+				loadForm(url);
+			});
+
+			function loadForm(url) {
+				fetch(url)
+					.then(response => response.text())
+					.then(html => {
+						console.log('Form HTML loaded:', html);
+						document.getElementById('formContainer').innerHTML = html;
+
+						//Le formulaire etant injecte dans la vue, on appelle la fonction qui permet l'autocompletion pour le remplissage de l'adresse
+						initAutocomplete();
+						 // Ajouter le gestionnaire de soumission de formulaire après le chargement du formulaire
+						document.querySelector('#formContainer form').addEventListener('submit', function(event) {
+							event.preventDefault(); // Empêcher la soumission du formulaire par défaut
+							console.log('Form Submitted')
+							const formData = new FormData(this);
+							for (const pair of formData.entries()) {
+								console.log(`${pair[0]}: ${pair[1]}`);
+							}
+							submitForm(this.action, new FormData(this));
+						});
+					})
+					.catch(error => {
+						console.error('Error loading form:', error);
+					});
+			}
+			function submitForm(url, formData) {
+				fetch(url, {
+					method: 'POST',
+					body: formData
+				})
+				.then(response => {
+					console.log('Response status:', response.status);
+					return response.json();
+				})
+				.then(data => {
+					console.log('Server response:', data); // Vérifiez la réponse du serveur
+					// Gérer la réponse du serveur
+					if (data.success) {
+						console.log('Form submitted successfully!');
+						// Mettre à jour l'interface utilisateur, rediriger, etc.
+					} else {
+						console.error('Form submission error:', data.error);
+						// Afficher les messages d'erreur
+						document.getElementById('formContainer').innerHTML = data.formHtml;
+					}
+				})
+				.catch(error => {
+					console.error('Error submitting form:', error);
+				});
+			}
+
+			function initAutocomplete() {
+				$("#adresse_edit_form_adresse").autocomplete({
+					source: function(request, response) {
+						$.ajax({
+							url: "https://api-adresse.data.gouv.fr/search/?q=" + request.term,
+							dataType: "json",
+							success: function(data) {
+								response($.map(data.features, function(item) {
+									return {
+										label: item.properties.name + " - " + item.properties.postcode + " - " + item.properties.city,
+										value: item.properties.name,
+										postcode: item.properties.postcode,
+										city: item.properties.city
+									};
+								}));
+							},
+							error: function(xhr, status, error) {
+								console.error("API request failed:", status, error);
+							}
+						});
+					},
+					select: function(event, ui) {
+						$("#adresse_edit_form_codePostal").val(ui.item.postcode);
+						$("#adresse_edit_form_ville").val(ui.item.city);
+					}
+				});
+			}
+		});
+	</script>
+{% endblock %}

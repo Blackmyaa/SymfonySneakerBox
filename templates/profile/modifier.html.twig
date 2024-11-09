@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{app.user.nom}} {{app.user.prenom}}
+{% endblock %}
+
+
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	{% include "tools/messageFlash.html.twig"%}
+	<main class="container">
+		<section class="row">
+			<h1 class="mb-5">Bonjour {{app.user.nom}} {{app.user.prenom}}</h1>
+            <h2 class="text-decoration-underline mb-3">Modification de mes informations:</h2>
+                <div class="col-lg-10 mx-auto">
+                    {% include "profile/editProfilForm.html.twig" %}
+                </div>
+		</section>
+
+	</main>
+	{% include "tools/footer.html.twig" %}
+
+{% endblock %}

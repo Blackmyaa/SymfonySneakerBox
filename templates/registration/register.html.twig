@@ -28,7 +28,6 @@
 					{{ form_row(registrationForm.code_postal) }}
 					{{ form_row(registrationForm.ville) }}
 					{{ form_row(registrationForm.agreeTerms) }}
-
 				</fieldset>
 			</div>
 
@@ -37,7 +36,37 @@
 				<a href="{{ path('app_login')}}" class="btn btn-secondary mt-3">Me connecter</a>
 				{{ form_end(registrationForm) }}
 			</div>
-
 		</div>
 	</section>
+{% endblock %}
+
+
+{% block javascripts %}
+{# autocompletion pour l'adresse de l'utilisateur #}
+    <script>
+        $(document).ready(function() {
+            $("#registration_form_adresse").autocomplete({
+                source: function(request, response) {
+                    $.ajax({
+                        url: "https://api-adresse.data.gouv.fr/search/?q=" + request.term,
+                        dataType: "json",
+                        success: function(data) {
+                            response($.map(data.features, function(item) {
+                                return {
+                                    label: item.properties.name + " - " + item.properties.postcode + " - " + item.properties.city,
+                                    value: item.properties.name,
+                                    postcode: item.properties.postcode,
+                                    city: item.properties.city
+                                };
+                            }));
+                        }
+                    });
+                },
+                select: function(event, ui) {
+                    $("#registration_form_code_postal").val(ui.item.postcode);
+                    $("#registration_form_ville").val(ui.item.city);
+                }
+            });
+        });
+    </script>
 {% endblock %}

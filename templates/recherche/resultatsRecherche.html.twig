@@ -1,20 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Résultat de la recherche pour {{ query }}
+{% block title %}Résultat de la recherche pour
+	{{ query }}
 {% endblock %}
 
 {% block body %}
-    {% include "tools/userNav.html.twig" %}
-	<h1>Résultats de la recherche pour "{{ query }}"</h1>
+	{% include "tools/userNav.html.twig" %}
+	<main class="container">
+		<h1 class="mb-3">Résultats de la recherche pour "{{ query }}"</h1>
 
-	{% if produits is not empty %}
-		<ul>
-			{% for produit in produits %}
-				<li>{{ produit.nom }} - {{ produit.prix / 100 }}€</li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<p>Aucun produit trouvé pour "{{ query }}".</p>
-	{% endif %}
+		{% if produits is not empty %}
+			<table class="table table-success table-striped table-hover">
+				<thead>
+					<tr>
+						<th scope="col">Nom</th>
+						<th scope="col">Photo</th>
+						<th scope="col">Description</th>
+						<th scope="col">Prix</th>
+					</tr>
+				</thead>
 
+				<tbody>
+					{% for produit in produits %}
+
+						<tr>
+							<td>{{ produit.nom }}</td>
+							<td>
+								<img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" alt="{{produit.images[0].nom}}" width="80px">
+							</td>
+							<td>{{ produit.description }}</td>
+							<td>{{ produit.prix / 100 }}€</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+		{% else %}
+			<p>Aucun produit trouvé pour "{{ query }}".</p>
+		{% endif %}
+	</main>
 {% endblock %}

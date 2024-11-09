@@ -1,0 +1,11 @@
+{{form_start(formCategorieParent)}}
+<div class="row">
+	<div class="col-lg-10 col-md-10 border-dark">
+			{{form_row(formCategorieParent.nom)}}
+	</div>
+</div>
+<br><br><br>
+<div class="text-center">
+	<button type="submit" class="btn btn-primary mt-2">{{ button_label|default('Ajouter Catégorie Parent')}}</button> {# On met en place un bouton variable dont la valeur par défaut est ajouter #}
+</div>
+{{form_end(formCategorieParent)}}

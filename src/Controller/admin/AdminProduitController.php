@@ -57,9 +57,12 @@ class AdminProduitController extends AbstractController
                 $produit->addImage($img); // on utilise la fonction addImage qui se situe dans l'entité Produit
             }
             
-            
             //On genere le slug
-            $slug = $slugger->slug($produit->getNom());
+            $nomProduit = $produit->getNom();
+            // Transforme le texte en minuscules avant de créer le slug
+            $nomProduit = mb_strtolower($nomProduit, 'UTF-8');
+
+            $slug = $slugger->slug($nomProduit);
             $produit->setSlug($slug);
             
             //On arrondit le prix en le mutltipliant par 100
@@ -115,7 +118,7 @@ class AdminProduitController extends AbstractController
                 $img->setNom($fichier);
                 $produit->addImage($img); // on utilise la fonction addImage qui se situe dans l'entité Produit
             }
-            //On genere ke slug
+            //On genere e slug
             $slug = $slugger->slug($produit->getNom())->lower();
             $produit->setSlug($slug);
             

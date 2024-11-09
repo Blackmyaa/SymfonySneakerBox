@@ -2,7 +2,15 @@
 
 {% block title %}Profil de {{app.user.nom}} {{app.user.prenom}}
 {% endblock %}
-
+{% block stylesheets %}
+	<style>
+		@media(max-width:991px) {
+			.border-dark {
+				--bs-border-opacity: 0;
+			}
+		}
+	</style>
+{% endblock %}
 {% block body %}
 	{% include "tools/userNav.html.twig" %}
 	<main class="container">
@@ -13,26 +21,21 @@
 
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{app.user.email}}" readonly=true>
-					<button class="btn btn-secondary" type="button" id="button-addon1">Modifier</button>
 				</div>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{app.user.adresse}}" readonly=true>
-					<button class="btn btn-secondary" type="button" id="button-addon1">Modifier</button>
 				</div>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{app.user.codePostal}}" readonly=true>
-					<button class="btn btn-secondary" type="button" id="button-addon1">Modifier</button>
 				</div>
 				<div class="input-group mb-3">
 					<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{app.user.ville}}" readonly=true>
-					<button class="btn btn-secondary" type="button" id="button-addon1">Modifier</button>
 				</div>
-				{# <div class="input-group mb-3">
-				<label>Date d'inscription</label>
-					<input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{app.user.roles}}" readonly=true>
-					
-				</div> #}
+				<div class="text-center">
+					<a href="/profil/editUser/{{app.user.id}}"><button class="btn btn-secondary" type="button" id="button-addon1">Modifier</button></a>
+				</div>
 			</div>
+			
 			<div class="col-lg-6 border-start border-dark">
 				<h2 class="text-decoration-underline mb-3">Mes commandes:</h2>
 				
@@ -50,14 +53,14 @@
 						<tbody>
 							<tr>
 								<td>{{commande.reference}}</td>
-								<td>{{commande.createdAt.format('d/m/y h:m:s')}}</td>
+								<td>{{commande.createdAt.format('D d/m/y h:m:s')}}</td>
 								<td class="text-center"><a class="btn btn-secondary" href="/order{{commande.reference}}/details">voir</a></td>
 								<td class="text-center"><a class="btn btn-secondary" href="/generate-pdf/{{commande.id}}">PDF</a></td>
 							</tr>
 						</tbody>
 						{% else %}
                         <tr>
-                            <td colspan="3" class="text-center">Aucune commande à afficher</td>
+                            <td colspan="4" class="text-center">Aucune commande à afficher</td>
                         </tr>
 					{% endfor %}
 				</table>

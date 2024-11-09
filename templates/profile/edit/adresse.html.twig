@@ -1,0 +1,15 @@
+<fieldset class="col-6 mx-auto">
+	<legend>Adresse postale</legend>
+	{{form_start(formAdresse) }}
+	{{form_row(formAdresse.adresse)}}
+	<div class="row">
+		<div class="col-3">
+			{{form_row(formAdresse.codePostal)}}
+		</div>
+
+		<div class="col-9">
+			{{form_row(formAdresse.ville)}}
+		</div>
+	</div>
+	<button class="bg-success text-white" type="submit">Changer</button>
+	{{form_end(formAdresse)}}</fieldset>

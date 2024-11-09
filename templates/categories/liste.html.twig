@@ -16,42 +16,47 @@
 	</style>
 {% endblock %}
 {% block body %}
-
-
 	{% include "tools/userNav.html.twig" %}
 	<main class="container">
 		<section class="row">
-			{% set path = 'categories_list' %}
-			{% set slug = categories.slug %}
-			{% set pages = produits.pages %}
-			{% set currentPage = produits.page %}
-			<div class="col-12 mt-3">
-				{% include "tools/pagination.html.twig" %}
-			</div>
+			{% if produits is empty %}
+				<div class="text-center">
+					<p>Cette catégorie ne contient pas encore de produits</p>
+				</div>
+			{% else %}
+				{% set path = 'categories_list' %}
+				{% set slug = categories.slug %}
+				{% set pages = produits.pages %}
+				{% set currentPage = produits.page %}
+				<div class="col-12 mt-3">
+					{% include "tools/pagination.html.twig" %}
+				</div>
 
+				<h1>Produits de la catégorie
+					{{ categories.nom }}</h1>
 
-			<h1>Produits de la catégorie
-				{{ categories.nom }}</h1>
-
-			{% for produit in produits.data %}
-				<div class="col-lg-3 col-md-3 col-sm- col-6 mb-2">
-					<div class="card h-100">
-						<a href="{{ path('produits_details', {slug: produit.slug}) }}"><img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" class="card-img-top" alt="{{produit.nom}}"></a>
-						<div class="card-body">
-							<h5 class="card-title max-lines" style="--max_lines:1;">{{produit.nom}}</h5>
-							<h6>{{produit.prix / 100}}€</h6>
-							<p class="card-text max-lines" style="--max_lines:2;">{{produit.description}}</p>
-							<a href="{{ path('produits_details', {slug: produit.slug}) }}" class="btn btn-primary">Voir</a>
-							<a href="{{ path('cart_add', {id: produit.id})}}" class="btn btn-success">Ajouter</a>
+				{% for produit in produits.data %}
+					<div class="col-lg-3 col-md-3 col-sm- col-6 mb-2">
+						<div class="card h-100">
+							<a href="{{ path('produits_details', {slug: produit.slug}) }}"><img src="{{asset('uploads/produits/mini/300x300-'~ produit.images[0].nom)}}" class="card-img-top" alt="{{produit.nom}}"></a>
+							<div class="card-body">
+								<h5 class="card-title max-lines" style="--max_lines:1;">{{produit.nom}}</h5>
+								<h6>{{produit.prix / 100}}€</h6>
+								<p class="card-text max-lines" style="--max_lines:2;">{{produit.description}}</p>
+								<a href="{{ path('produits_details', {slug: produit.slug}) }}" class="btn btn-primary">Voir</a>
+								<a href="{{ path('cart_add', {id: produit.id})}}" class="btn btn-success">Ajouter</a>
+							</div>
 						</div>
 					</div>
-				</div>
-			{% endfor %}
+				{% endfor %}
 
-			
-			<div class="col-12 mt-3">
-				{% include "tools/pagination.html.twig" %}
-			</div>
+				
+				<div class="col-12 mt-3">
+					{% include "tools/pagination.html.twig" %}
+				</div>
+					
+			{% endif %}
+		
 		</section>
 	</main>
 

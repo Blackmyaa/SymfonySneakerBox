@@ -2,28 +2,7 @@
 	<link href="{{asset('css/userNav.css')}}" rel="stylesheet">
 {% endblock %}
 
-{% block javascripts %}
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const form = document.querySelector('form');
-			form.addEventListener('keypress', function(event) {
-				if (event.key === 'Enter') {
-					form.submit();
-				}
-			});
-		});
-	</script>
 
-	<script>
-		document.getElementById('searchForm').addEventListener('submit', function(event) {
-			var query = document.getElementById('searchQuery').value.trim();
-			if (query === '') {
-				event.preventDefault(); // Empêche la soumission du formulaire
-				window.location.href = "{{ path('search_form') }}";
-			}
-		});
-	</script>
-{% endblock %}
 
 {# Ancien Menu 
 <ul class="nav justify-content-end bg-danger">
@@ -163,3 +142,26 @@
 </nav>
 
 {% include "tools/messageFlash.html.twig" %}
+
+{% block javascripts %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			const form = document.querySelector('form');
+			form.addEventListener('keypress', function(event) {
+				if (event.key === 'Enter') {
+					form.submit();
+				}
+			});
+		});
+	</script>
+
+	<script>
+		document.getElementById('searchForm').addEventListener('submit', function(event) {
+			var query = document.getElementById('searchQuery').value.trim();
+			if (query === '') {
+				event.preventDefault(); // Empêche la soumission du formulaire
+				window.location.href = "{{ path('search_form') }}";
+			}
+		});
+	</script>
+{% endblock %}

@@ -104,6 +104,12 @@ public function index(ProduitsRepository $produitRepo, SessionInterface $session
     #[Route('/empty', name: 'empty')]
     public function empty(SessionInterface $session)
     {
+        $panier = $session->get('panier', []);
+        
+        if ($panier === []){
+            $this->addFlash('danger', 'Votre panier est vide');
+            return $this->redirectToRoute('app_accueil');
+        }
         $session->remove('panier');
         
         return $this->redirectToRoute('cart_index');

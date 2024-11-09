@@ -1,0 +1,37 @@
+{# templates/payment/checkout.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Paiement</h1>
+    <form id="payment-form">
+        <div id="card-element">
+            <!-- Elements Stripe vont être insérés ici -->
+        </div>
+        <button id="submit">Payer</button>
+    </form>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        var stripe = Stripe('{{ stripePublicKey }}');
+        var elements = stripe.elements();
+        var cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const { paymentIntent, error } = await stripe.confirmCardPayment('{{ clientSecret }}', {
+                payment_method: {
+                    card: cardElement,
+                }
+            });
+
+            if (error) {
+                console.error(error);
+            } else {
+                console.log('Paiement réussi !');
+                // Redirige ou affiche un message de succès
+            }
+        });
+    </script>
+{% endblock %}

@@ -43,6 +43,7 @@ class ProduitsFormType extends AbstractType
             ->add('stock', NumberType::class, ['label' => 'Quantité disponible','attr'=> ['class'=>'form-control mb-2', 'placeholder' => 'Stock']])
             ->add('categories', EntityType::class, [
                 'label'=> 'Catégorie',
+                'placeholder' => '--Selectionnez une Catégorie--',
                 'class' => Categories::class,
                 'choice_label' => 'nom',
                 'group_by'=>'parent.nom',
