@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detail Commande {{commandes.reference}}
+{% endblock %}
+{% block body %}
+
+        {% include "tools/dashNav.html.twig" %}
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container">
+            {% include "tools/messageFlash.html.twig" %}
+            <h3 class="text-center mt-3 mb-3">Détails Commande N°{{commandes.reference}}</h3>
+            <h5 class="text-center mb-3">effectuée par: {{users.nom}} {{users.prenom}}</h5>
+            <h5 class="text-center mb-3">passée le: {{commandes.createdAt.format('d/m/y h:m')}}</h5>
+            <div class="col-10 mx-auto">
+                <table class="table table-success table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nom</th>
+                            <th scope="col">Prix Unitaire(€)</th>
+                            <th scope="col">Quantité</th>
+                            <th scope="col">Prix(€)</th>
+                        </tr>
+                    </thead>
+                    {% for produit in commandeUtile %}
+
+                    <tbody>
+                        <tr>
+                            <td>{{produit.produit.nom}}</td>
+                            <td>{{produit.prix / 100}}</td>
+                            <td>{{produit.quantite}}</td>
+                            <td>{{(produit.prix * produit.quantite) / 100}}</td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" class="text-end fw-bold">Total</td>
+                        <td>{{addition}}€</td>
+                    </tr>
+                </table>
+                <div class="text-center">
+                    <a class="btn btn-secondary" href="/admin/commandes">Liste commandes</a>
+                </div>
+            <div>
+        </main>
+    </div>
+</div>
+{% endblock %}

@@ -21,7 +21,36 @@ class AdminCommandeController extends AbstractController
 
         return $this->render('admin/commandes/listeCommandes.html.twig', [
             'commande' => $commande,
-            //'addition' => $addition
+        ]);
+    }
+
+    #[Route('/admin/commandes{reference}/details', name: 'app_admin_commande_details')]
+    public function detailCommande(CommandesRepository $commandesRepo, DetailCommandeRepository $detailCommandeRepo, ProduitsRepository $produitsRepo, Commandes $commandes): Response
+    {
+        $ref = $commandesRepo->findByReference($commandes);
+
+        $reference = $commandes->getReference();
+        $users = $commandes->getUsers();
+
+        $commande = $commandesRepo->findBy(['reference' => $reference]);
+        $commandeId = $commandesRepo->findById($commande);
+
+        $commandeUtile = $detailCommandeRepo->findBy(['commande'=>$commandeId]);
+
+        $addition = 0;
+        foreach ($commandeUtile as $produit) {
+            $prix = $produit->getPrix();
+            $quantite = $produit->getQuantite();
+            
+            $addition = ($quantite * $prix) + $addition;
+        }
+        $addition = $addition / 100;
+
+        return $this->render('admin/commandes/adminDetailCommandes.html.twig', [
+            'commandeUtile' => $commandeUtile,
+            'addition' => $addition,
+            'commandes' => $commandes,
+            'users'=> $users
         ]);
     }
 }
