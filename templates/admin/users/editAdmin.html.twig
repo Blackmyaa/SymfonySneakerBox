@@ -11,11 +11,11 @@
     }
 }
 
-#admin_edit_form_roles_0, #admin_edit_form_roles_1, #admin_edit_form_roles_2 { 
+#admin_edit_form_roles_0, #admin_edit_form_roles_1 { 
     margin-right:5px; /* Ajoute un espacement entre chaque option */
 }
 
-#admin_edit_form_roles_1,#admin_edit_form_roles_2 { 
+#admin_edit_form_roles_1 { 
     margin-left: 15px; /* Ajoute un espacement entre chaque option */ 
 }
 </style>
@@ -66,33 +66,22 @@
         document.addEventListener('DOMContentLoaded', function() { 
             let checkbox1 = document.querySelector('#admin_edit_form_roles_0'); 
             let checkbox2 = document.querySelector('#admin_edit_form_roles_1');
-            let checkbox3 = document.querySelector('#admin_edit_form_roles_2'); 
             
             // Décocher toutes les cases au chargement de la page 
             checkbox1.checked = false; 
             checkbox2.checked = false; 
-            //checkbox3.checked = false; a réactiver pour downgrade un admin
                         
             checkbox1.addEventListener('change', function() { 
                 if (this.checked) { 
                     checkbox2.checked = false;
-                    //checkbox3.checked = false;
                 } 
             }); 
             
             checkbox2.addEventListener('change', function() { 
                 if (this.checked) { 
                     checkbox1.checked = false;
-                    //checkbox3.checked = false;
                 } 
             });
-
-            //checkbox3.addEventListener('change', function() { 
-            //    if (this.checked) { 
-            //        checkbox1.checked = false;
-            //        checkbox2.checked = false;
-            //    } 
-            //});
         });
     </script>
 {% endblock %}

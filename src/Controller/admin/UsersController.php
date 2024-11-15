@@ -149,12 +149,41 @@ class UsersController extends AbstractController
             $this->addFlash('success', 'Modif effectuée avec succès');
 
             return $this->redirectToRoute('app_users_admin_liste');
-
         }
 
         return $this->render('admin/users/editAdmin.html.twig', [
             'formAdmin'=>$formAdmin->createView(),
             'user'=>$user
         ]);
+    }
+    #[Route('/remove-admin-roles/{id}',name:'remove_admin')]
+    public function removeAdmin(int $id, EntityManagerInterface $manager): Response
+    {
+        $user = $manager->getRepository(Users::class)->find($id);
+
+        if (!$user) { 
+            throw $this->createNotFoundException('Utilisateur non trouvé.'); 
+        }
+
+        // Mettre à jour les rôles de l'utilisateur 
+        $roles = $user->getRoles();
+        
+        // Supprimer les rôles d'administrateur 
+        $roles = array_diff($roles, ['ROLE_PRODUCT_ADMIN', 'ROLE_ADMIN']); 
+        
+        // Ajouter le rôle de membre s'il n'existe pas déjà 
+        $roles[0] = 'ROLE_USER';
+        
+        //On élimine Tout les autres termes du tableau roles
+        $roles=[$roles[0]];
+
+        // Mettre à jour les rôles de l'utilisateur 
+        $user->setRoles($roles);
+
+        // Enregistrer les modifications dans la base de données 
+        $manager->persist($user); 
+        $manager->flush();
+        
+        return $this->redirectToRoute('app_users_admin_liste');
     }
 }

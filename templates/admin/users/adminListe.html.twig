@@ -33,7 +33,7 @@
                                 <tr>
                                     <th scope="col" class="text-center">Nom</th>
                                     <th scope="col" class="text-center">Prénom</th>
-									<th scope="col" class="text-center small-screen">Role</th>
+									<th scope="col" class="text-center small-screen">Roles</th>
 									<th scope="col" class="text-center small-screen">Vérifié</th>
 									<th scope="col" class="text-center">Détails Admin</th>
                                 </tr>
@@ -71,6 +71,9 @@
                                         </a>
                                         <a type="button" class="btn btn-warning text-dark" href="/admin/utilisateurs/edit-admin/{{user.id}}">
                                             Modifier
+                                        </a>
+                                        <a type="button" class="btn btn-danger text-white" href="/admin/utilisateurs/remove-admin-roles/{{user.id}}">
+                                            Supprimer Roles Admin
                                         </a>
                                     </td>
                                 </tr>
