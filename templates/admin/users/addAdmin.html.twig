@@ -1,0 +1,109 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout Admins{% endblock %}
+
+{% block body %}
+<style>
+	@media(max-width:500px){
+
+    .small-screen{
+        display: none;
+    }
+    }
+
+    #add_admin_form_roles_0, #add_admin_form_roles_1 { 
+    margin-right:5px; /* Ajoute un espacement entre chaque option */
+}
+
+#add_admin_form_roles_1 { 
+    margin-left: 15px; /* Ajoute un espacement entre chaque option */ 
+}
+</style>
+
+{% include "tools/dashNav.html.twig" %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container">
+				{% include "tools/messageFlash.html.twig" %}
+
+                <h1 class="h2">Administration des Utilisateurs:</h1>
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10">
+                                <h3 class="text-center text-decoration-underline mb-5">Ajouter Admin:</h3>
+                            </div>
+                        </div>
+                        {{form_start(formAdmin)}}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    {{form_row(formAdmin.nom)}}
+                                    {{form_row(formAdmin.prenom)}}
+                                    {{form_row(formAdmin.email)}}
+                                    {{form_row(formAdmin.password)}}
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    {{form_row(formAdmin.adresse)}}
+                                    {{form_row(formAdmin.codePostal)}}
+                                    {{form_row(formAdmin.ville)}}
+                                    {{form_row(formAdmin.roles)}}
+                                </div>                        
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-secondary">Ajouter</button>
+                                </div>
+                            </div>
+                        {{form_end(formAdmin)}}
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+{# Script pour autocompletion de l'adresse #}
+<script>
+    $(document).ready(function() {
+        $("#add_admin_form_adresse").autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: "https://api-adresse.data.gouv.fr/search/?q=" + request.term,
+                    dataType: "json",
+                    success: function(data) {
+                        response($.map(data.features, function(item) {
+                            return {
+                                label: item.properties.name + " - " + item.properties.postcode + " - " + item.properties.city,
+                                value: item.properties.name,
+                                postcode: item.properties.postcode,
+                                city: item.properties.city
+                            };
+                        }));
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $("#add_admin_form_codePostal").val(ui.item.postcode);
+                $("#add_admin_form_ville").val(ui.item.city);
+            }
+        });
+    });
+</script>
+
+{# Script pour ne cocher qu'une seule checkbox #}
+<script> 
+    document.addEventListener('DOMContentLoaded', function() { 
+        let checkbox1 = document.querySelector('#add_admin_form_roles_0'); 
+        let checkbox2 = document.querySelector('#add_admin_form_roles_1'); 
+        
+        checkbox1.addEventListener('change', function() { 
+            if (this.checked) { 
+                checkbox2.checked = false; 
+            } 
+        }); 
+        
+        checkbox2.addEventListener('change', function() { 
+            if (this.checked) { 
+                checkbox1.checked = false; 
+            } 
+        }); 
+    });
+</script>
+{% endblock %}

@@ -17,6 +17,7 @@
 						<th scope="col">Photo</th>
 						<th scope="col">Description</th>
 						<th scope="col">Prix</th>
+						<th scope="col"></th>
 					</tr>
 				</thead>
 
@@ -30,6 +31,7 @@
 							</td>
 							<td>{{ produit.description }}</td>
 							<td>{{ produit.prix / 100 }}€</td>
+							<td><a href="/produits/{{produit.slug}}"class="btn btn-secondary">Voir</a></td>
 						</tr>
 					{% endfor %}
 				</tbody>

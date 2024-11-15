@@ -41,6 +41,7 @@ security:
         - { path: ^/admin, roles: ROLE_PRODUCT_ADMIN }
         - { path: ^/admin/produits, roles: ROLE_PRODUCT_ADMIN }
         - { path: ^/admin/produits/edition, roles: ROLE_PRODUCT_ADMIN }
+        - { path: ^/admin/categorie, roles: ROLE_PRODUCT_ADMIN }
         - { path: ^/profil, roles: ROLE_USER }
     
     role_hierarchy:

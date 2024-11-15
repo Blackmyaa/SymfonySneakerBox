@@ -33,11 +33,6 @@ class ContactController extends AbstractController
         $users = $this->userRepository->findAll();
         $adminEmails = [];
         foreach ($users as $user) {
-            // Utiliser isGranted pour vérifier si l'utilisateur a le rôle ROLE_ADMIN
-            // if ($this->isGranted('["ROLE_ADMIN"]', $user)) {
-            //     $adminEmails[] = $user->getEmail();
-            // }
-
             if (in_array("ROLE_ADMIN", $user->getRoles()) || in_array('ROLE_PRODUCT_ADMIN', $user->getRoles())) { 
                 $adminEmails[] = $user->getEmail(); 
             }
@@ -76,7 +71,7 @@ class ContactController extends AbstractController
             ];
 
             foreach ($recipients as $recipient) {
-                $this->emailService->sendContactMail(
+                $this->emailService->send(
                     $contact->getEmail(),
                     $recipient,
                     'Nouveau message de '.$contact->getNom() .' ' .$contact->getPrenom(),

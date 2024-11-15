@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{app.user.nom}} {{app.user.prenom}}
+{% endblock %}
+{% block stylesheets %}
+	<style>
+		@media(max-width:991px) {
+			.border-dark {
+				--bs-border-opacity: 0;
+			}
+		}
+	</style>
+{% endblock %}
+
+{% block body %}
+<style>
+	@media(max-width:500px){
+
+    .small-screen{
+        display: none;
+    }
+}
+</style>
+
+{% include "tools/dashNav.html.twig" %}
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container">
+				{% include "tools/messageFlash.html.twig" %}
+
+                <h1 class="h2">Administration des Utilisateurs:</h1>
+                <div class="row mt-3">
+                    <div class="col-lg-12">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10">
+                                <h3 class="text-center text-decoration-underline mb-5">Informations de {{user.nom}} {{user.prenom}}:</h3>
+                            </div>
+                        </div>
+                        <section class="row">
+                            <div class="col-lg-6 mx-auto">
+
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{user.email}}" readonly=true>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{user.adresse}}" readonly=true>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{user.codePostal}}" readonly=true>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" value="{{user.ville}}" readonly=true>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" aria-label="Example text with button addon" aria-describedby="button-addon1" 
+                                    {% if user.roles[0] is same as("ROLE_USER") %}
+                                        value="Utilisateur"
+                                    {% elseif user.roles[0] is same as("ROLE_ADMIN")%}
+                                        value="Administrateur"
+                                    {% else %}
+                                        value="Administrateur produit"
+                                    {% endif %}
+                                        readonly=true>
+                                </div>
+                                <div class="text-center">
+                                    <a href="/admin/utilisateurs/edit-admin/{{user.id}}"><button type="submit" class="btn btn-secondary" type="button" id="button-addon1">Modifier</button></a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+{% endblock %}
+

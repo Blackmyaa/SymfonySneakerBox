@@ -39,28 +39,13 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
         $this->getEntityManager()->flush();
     }
 
-//    /**
-//     * @return Users[] Returns an array of Users objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('u.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Users
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findAdminsAndProductAdmins() { 
+        return $this->createQueryBuilder('u') 
+            ->andWhere('u.roles LIKE :adminRole') 
+            ->orWhere('u.roles LIKE :productAdminRole') 
+            ->setParameter('adminRole', '%"ROLE_ADMIN"%') 
+            ->setParameter('productAdminRole', '%"ROLE_PRODUCT_ADMIN"%') 
+            ->getQuery() 
+            ->getResult(); 
+    }
 }

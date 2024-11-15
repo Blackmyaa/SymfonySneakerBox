@@ -32,21 +32,4 @@ class SendMailService{
         // On envoie le Mail
         $this->mailer->send($email);
     }
-
-    public function sendContactMail(string $from,
-        string $to,
-        string $subject,
-        string $template,
-        array $context
-    ): void {
-        $email = (new TemplatedEmail())
-            -> from($from)
-            -> to($to)
-            -> subject($subject)
-            -> htmlTemplate("email/$template.html.twig")
-            -> context($context);
-
-        // On envoie le Mail
-        $this->mailer->send($email);
-    }
 }

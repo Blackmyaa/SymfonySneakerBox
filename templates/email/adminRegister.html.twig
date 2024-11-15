@@ -1,0 +1,23 @@
+<h5>Inscription administrateur</h5><br><br>
+
+<p>Bonjour {{ nom }} {{ prenom }},<br>
+
+Vous venez d'être promu(e) 
+{% if  roles[0]  is same as('ROLE_ADMIN') %}
+    Administrateur
+{% else %}
+
+    Administrateur Produit
+{% endif %}
+de votre site MySneakersBox<br><br>
+
+Voici vos identifiants:<br>
+
+Email: {{ user_email }}<br>
+
+MDP: {{ password }} à changer impérativement dès votre premiere connexion!!<br>
+
+IMPORTANT: Vous allez recevoir un autre email pour confirmer votre adresse electronique<br><br>
+
+Cordialement,<br>
+L’équipe MySneakersBox</p>

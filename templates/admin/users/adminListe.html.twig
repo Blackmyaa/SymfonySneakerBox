@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Gestion des Utilisateurs{% endblock %}
+{% block title %}Liste des Admins{% endblock %}
 
 {% block body %}
 <style>
@@ -20,7 +20,7 @@
                     <div class="col-lg-12">
                         <div class="row">
                             <div class="col-lg-10 col-md-10">
-                                <h3 class="text-center text-decoration-underline mb-5">Liste des utilisateurs:</h3>
+                                <h3 class="text-center text-decoration-underline mb-5">Liste des admins:</h3>
                             </div>
                             
                             <div class="col-lg-2 col-md-2">
@@ -35,12 +35,12 @@
                                     <th scope="col" class="text-center">Prénom</th>
 									<th scope="col" class="text-center small-screen">Role</th>
 									<th scope="col" class="text-center small-screen">Vérifié</th>
-									<th scope="col" class="text-center">Détails utilisateurs</th>
+									<th scope="col" class="text-center">Détails Admin</th>
                                 </tr>
                             </thead>
 
                             <tbody>
-                            {% for user in users %}
+                            {% for user in admins %}
                                 <tr>
                                     <td class="text-center">{{user.nom|capitalize}}</td>
 									<td class="text-center">{{user.prenom|capitalize}}</td>
