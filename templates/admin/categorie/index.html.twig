@@ -48,7 +48,7 @@
                                     {% else %}
                                         <td class="text-center">N'en possède pas</td>
                                     {% endif %}
-                                    <td class="text- small-screen">{{categorie.slug}}</td>
+                                    <td class="text-center small-screen">{{categorie.slug}}</td>
                                     <td class="text-center">
                                     {% if categorie.parent != NULL %}
                                         <a type="button" class="btn btn-secondary text-white" href="{{ path('admin_categorie_list', {slug: categorie.slug})}}">

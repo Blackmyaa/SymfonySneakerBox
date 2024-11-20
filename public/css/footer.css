@@ -1,9 +1,9 @@
-#footer {
+ #footer {
     color:white;
-    position:relative;
+    position:sticky;
     bottom: 0;
     /* on le colle en bas */
     width: 100%;
     height: auto;
     /* Hauteur du pied de page */
-}
+}  

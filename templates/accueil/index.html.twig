@@ -21,25 +21,29 @@
 		</div>
 
 		<section class="row mt-2">
-			{% for category in categories %}
-				{% if category.parent == null %}
-					<div class="col-12">
-						<h2>{{ category.nom|capitalize }}</h2>
-					</div>
-				{% else %}
-					<div class="col-lg-3 col-md-3 col-sm-4 mt-2">
-						<div class="card h-100 border-dark" id="card">
-							<div class="card-body">
-								<h5 class="card-title">{{category.nom|capitalize}}</h5>
-								<a href="{{ path('categories_list', {slug: category.slug})}}" class="btn btn-primary">Voir</a>
+			{% if categories is empty %}
+				<div class="text-center">
+					<p>Pas encore de Catégorie</p>
+				</div>
+			{% else %}
+				{% for category in categories %}
+					{% if category.parent == null %}
+						<div class="col-12">
+							<h2>{{ category.nom|capitalize }}</h2>
+						</div>
+					{% else %}
+						<div class="col-lg-3 col-md-3 col-sm-4 mt-2">
+							<div class="card h-100 border-dark" id="card">
+								<div class="card-body">
+									<h5 class="card-title">{{category.nom|capitalize}}</h5>
+									<a href="{{ path('categories_list', {slug: category.slug})}}" class="btn btn-primary">Voir</a>
+								</div>
 							</div>
 						</div>
-					</div>
-				{% endif %}
-			{% endfor %}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
 		</section>
 	</main>
-	<div class="footer">
-		{% include "tools/footer.html.twig" %}
-	</div>
+	{% include "tools/footer.html.twig" %}
 {% endblock %}

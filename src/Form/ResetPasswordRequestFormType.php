@@ -12,8 +12,14 @@ class ResetPasswordRequestFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', EmailType::class, ['attr'=>['class'=>'form-control mt-2', 'placeholder' => 'Entrez votre adresse mail'], 'label' => 'Em@il'])
-
+            ->add('email', EmailType::class, [
+                'label' => 'Em@il',
+                'required'=> true,
+                'attr'=>[
+                    'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$',
+                    'class'=>'form-control mt-2', 'placeholder' => 'Entrez votre adresse mail'
+                ], 
+            ])
 
         ;
     }

@@ -58,7 +58,7 @@ class ContactController extends AbstractController
             if ($contact->getSujet() === 'produit') {
                 $recipients = $this->getAdminEmails(); // Implémenter cette méthode pour récupérer tous les emails des administrateurs
             } else {
-                $recipients = ['admin@admin.fr']; // Remplacer par l'email de l'administrateur principal
+                $recipients = ['vinted.ym@gmail.com']; // Remplacer par l'email de l'administrateur principal
             }
 
             // Préparer le contexte pour l'email

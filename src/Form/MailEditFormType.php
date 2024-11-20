@@ -15,9 +15,10 @@ class MailEditFormType extends AbstractType
         $builder
             ->add('email', EmailType::class,[
                 'label'=>'Em@il',
-                'required' => false,
+                'required' => true,
                 'attr'=> [
-                    'class'=>'form-control mb-2', 
+                    'class'=>'form-control mb-2',
+                    'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$',
                     'placeholder' => '@'
                     ]
                 ])

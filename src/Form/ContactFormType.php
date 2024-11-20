@@ -20,22 +20,29 @@ class ContactFormType extends AbstractType
         $this->security = $security; 
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options):void
     {
         $user = $this->security->getUser();
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'Nom',
                 'data' => $user ? $user->getNom() : null,
+                'attr' => [ 'readonly' => $user ? 'readonly' : false, ],
                 ])
 
             ->add('prenom', TextType::class, [
                 'label' => 'Prénom',
                 'data' => $user ? $user->getPrenom() : null,
+                'attr' => [ 'readonly' => $user ? 'readonly' : false, ],
                 ])
 
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'required'=>true,
+                'attr'=> [
+                    'readonly' => $user ? 'readonly' : false,
+                    'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+                ],
                 'data' => $user ? $user->getEmail() : null,
                 ])
 

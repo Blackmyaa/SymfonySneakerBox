@@ -39,7 +39,11 @@ class AddAdminFormType extends AbstractType
 
             ->add('email', EmailType::class, [
                 'label'=>'Email',
-                'attr'=> ['class'=>'form-control mb-2']
+                'required'=>true,
+                'attr'=> [
+                    'class'=>'form-control mb-2',
+                    'pattern' => '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
+                    ]
             ])
 
             ->add('password', PasswordType::class, [

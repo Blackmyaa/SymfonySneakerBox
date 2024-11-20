@@ -8,7 +8,7 @@
 		<div>
 			<label class="form-label col-4">Em@il</label>
 				<button id="changeMailBtn" class="bg-secondary text-white">Modifier</button>
-			<input class="form-control mb-3" readonly="true" value="{{app.user.email}}">
+			<input class="form-control mb-3" name="email_user"  readonly="true" value="{{app.user.email}}">
 		</div>
 		<div>
 			<label class="form-label col-4">MDP</label>
@@ -39,6 +39,11 @@
 	<script>
 		document.addEventListener('DOMContentLoaded', function() {
 			const userId = {{ app.user.id }}; // Récupérer l'ID de l'utilisateur
+			
+			var emailInput = document.getElementById('mail_edit_form_email'); 
+			if (emailInput) { 
+				emailInput.value = ''; // Vider le champ de saisie 
+				}
 
 			document.getElementById('changePasswordBtn').addEventListener('click', function() {
 				const url = `/profil/editUser/${userId}/editMDP`; // Construire l'URL directement
@@ -139,4 +144,5 @@
 			}
 		});
 	</script>
+	
 {% endblock %}

@@ -17,14 +17,12 @@
 				<div class="row">
 					{% for image in produit.images %}
 						<div class="card mb-3" style="width: 150px;">
-							<img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="Images" class="card-img-top">
+							<img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="{{produit.nom}}" class="card-img-top">
 							<div class="card-body">
 								<a class="btn btn-danger" href="{{ path('admin_products_delete_image', {id: image.id})}}" data-delete data-token="{{ csrf_token('delete' ~ image.id) }}">Supprimer</a>
 							</div>
 						</div>
 					
-							{# <img src="{{asset('uploads/produits/mini/300x300-' ~ image.nom ) }}" width="150" alt="Images" class="mb-3">
-							<a class="btn btn-danger" href="{{ path('admin_products_delete_image', {id: image.id})}}" data-delete data-token="{{csrf_token('delete' ~ image.id) }}">Supprimer</a> #}
 					{% endfor %}
 				</div>
 			

@@ -4,9 +4,9 @@ namespace App\Controller\admin;
 
 use App\Entity\Categories;
 use App\Repository\UsersRepository;
+use App\Repository\VisiteRepository;
 use App\Repository\ProduitsRepository;
 use App\Repository\CategoriesRepository;
-use App\Repository\VisitCounterRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminDashboardController extends AbstractController
 {
     #[Route('/MonDashboard', name: 'index')]
-    public function index(VisitCounterRepository $visitRepository, CategoriesRepository $categoriesRepository,UsersRepository $usersRepository, ProduitsRepository $produitsRepository, Request $request): Response
+    public function index(CategoriesRepository $categoriesRepository,UsersRepository $usersRepository, ProduitsRepository $produitsRepository, Request $request, VisiteRepository $visiteRepository): Response
     {
         $prod = $produitsRepository->findAll();
 
@@ -59,28 +59,18 @@ class AdminDashboardController extends AbstractController
         $lastUser = $usersRepository->findOneBy([],['cree_le'=>'DESC']);
 
         //Remplissage de la partie compteur de visites
-        $now = new \DateTime(); 
-        $startOfDay = (clone $now)->setTime(0, 0); 
-        $yesterday = (clone $startOfDay)->modify('-1 day'); 
-        $startOfWeek = (clone $startOfDay)->modify('this week'); 
-        $startOfLastWeek = (clone $startOfWeek)->modify('-1 week'); 
-        $startOfMonth = (clone $startOfDay)->modify('first day of this month'); 
-        $startOfLastMonth = (clone $startOfMonth)->modify('-1 month'); 
-        $startOfYear = (clone $startOfDay)->modify('first day of January this year'); 
-        $startOfLastYear = (clone $startOfYear)->modify('-1 year'); 
         
-        $visitsToday = $visitRepository->countVisits($startOfDay, $now); 
-        $visitsYesterday = $visitRepository->countVisits($yesterday, $startOfDay); 
-        $visitsThisWeek = $visitRepository->countVisits($startOfWeek, $now); 
-        $visitsLastWeek = $visitRepository->countVisits($startOfLastWeek, $startOfWeek); 
-        $visitsThisMonth = $visitRepository->countVisits($startOfMonth, $now); 
-        $visitsLastMonth = $visitRepository->countVisits($startOfLastMonth, $startOfMonth); 
-        $visitsThisYear = $visitRepository->countVisits($startOfYear, $now); $visitsLastYear = 
-        $visitRepository->countVisits($startOfLastYear, $startOfYear); 
-        $nonConnectedVisitsToday = $visitRepository->countVisits($startOfDay, $now, false); 
-        $connectedVisitsToday = $visitRepository->countVisits($startOfDay, $now, true);
+        $visitsToday = $visiteRepository->findTodaysVisits();
+        $visitsYesterday = $visiteRepository->findYesterdaysVisits();
 
+        $visitsThisWeek = $visiteRepository->findCurrentWeekVisitsCount();
+        $visitsLastWeek = $visiteRepository->findLastWeekVisitsCount();
 
+        $visitsThisMonth = $visiteRepository->findCurrentMonthVisitsCount();
+        $visitsLastMonth = $visiteRepository->findLastMonthVisitsCount();
+
+        $visitsThisYear = $visiteRepository->findCurrentYearVisitsCount();
+        $visitsLastYear = $visiteRepository->findLastYearVisitsCount();
 
         return $this->render('admin/admin_dashboard/index.html.twig', [
             'nombreRef'=> $nombreRef,
@@ -91,17 +81,17 @@ class AdminDashboardController extends AbstractController
             'lastProduit'=>$lastProduit,
             'lastUser'=>$lastUser,
 
-            'visitsToday' => $visitsToday, 
-            'visitsYesterday' => $visitsYesterday, 
-            'visitsThisWeek' => $visitsThisWeek, 
-            'visitsLastWeek' => $visitsLastWeek, 
-            'visitsThisMonth' => $visitsThisMonth, 
-            'visitsLastMonth' => $visitsLastMonth, 
-            'visitsThisYear' => $visitsThisYear, 
-            'visitsLastYear' => $visitsLastYear, 
-            'nonConnectedVisitsToday' => $nonConnectedVisitsToday, 
-            'connectedVisitsToday' => $connectedVisitsToday,
+            'visitsToday'=>$visitsToday,
+            'visitsYesterday'=>$visitsYesterday,
 
+            'visitsThisWeek'=>$visitsThisWeek,
+            'visitsLastWeek'=>$visitsLastWeek,
+
+            'visitsThisMonth'=>$visitsThisMonth,
+            'visitsLastMonth'=>$visitsLastMonth,
+
+            'visitsThisYear'=>$visitsThisYear,
+            'visitsLastYear'=>$visitsLastYear,
         ]);
     }
 }

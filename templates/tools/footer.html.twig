@@ -1,22 +1,27 @@
 {% block stylesheets %}
 	<link href="{{asset('css/footer.css')}}" rel="stylesheet">
+	<style>
+		footer a{
+			color: white;
+			text-decoration: none;
+		}
+	</style>
 {% endblock %}
-
-<div id="footer" class="bg-danger mt-5">
+<footer id="footer" class="footer bg-danger mt-5">
 	<div class="row">
 		<div class="col-lg-6 col-sm-4">
 			<ul>
-				<li>Qui nous sommes</li>
-				<li>Réglement</li>
-				<li>Notre Politique</li>
+				<li><a href="">Qui nous sommes</a></li>
+				<li><a href="">Réglement</a></li>
+				<li><a href="">Notre Politique</a></li>
 			</ul>
 		</div>
 		<div class="col-lg-6 col-sm-4">
 			<ul>
 				<li><a href="/contact">Nous contacter</a></li>
-				<li>Notre équipe</li>
-				<li>Nos transporteurs</li>
+				<li><a href="">Notre équipe</a></li>
+				<li><a href="">Nos transporteurs</a></li>
 			</ul>
 		</div>
 	</div>
-</div>
+</footer>
