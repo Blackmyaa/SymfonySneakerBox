@@ -17,23 +17,29 @@
 							{# dernier produit ajouté #}
 							<div class="col-lg-6 col-md-6">
 								<div class="row">
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<h5>Produit Ajouté</h5>
 									</div>
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<input readonly value="{{lastProduit.nom}}">
 									</div>
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<h5></h5>
 									</div>
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<input readonly value="{{lastProduit.categories.parent.nom}}">
 									</div>
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<h5></h5>
 									</div>
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<input readonly value="{{lastProduit.categories.nom}}">
+									</div>
+									<div class="mx-2 my-1 col-4">
+										<h5>Util. inscrit</h5>
+									</div>
+									<div class="mx-2 my-1 col-4">
+										<input readonly value="{{lastUser.nom}} {{lastUser.prenom}}">
 									</div>
 								</div>
 							</div>
@@ -41,17 +47,25 @@
 							{# derniere vente et utilisateur ajoutés #}
 							<div class="col-lg-6 col-md-6">
 								<div class="row">
-									<div class="mx-2 col-4">
+									<div class="mx-2 my-1 col-4">
 										<h5>Dernière vente</h5>
 									</div>
-									<div class="mx-2 col-4">
-										<input readonly value="montant derniere vente">
+									<div class="mx-2 my-1 col-4">
+										<input readonly value="Montant: {{lastVente / 100}}€">
 									</div>
-									<div class="mx-2 col-4">
-										<h5>Utilisateur inscrit</h5>
+
+									<div class="mx-2 my-1 col-4">
 									</div>
-									<div class="mx-2 col-4">
-										<input readonly value="{{lastUser.nom}} {{lastUser.prenom}}">
+
+									<div class="mx-2 my-1 col-4">
+										<input readonly value="Ref: {{lastReferenceVente}}">
+									</div>
+									<div class="mx-2 my-1 col-4">
+										<h5>Effectuée par</h5>
+									</div>
+
+									<div class="mx-2 my-1 col-4">
+										<input readonly value="{{userName}} {{userLastName}}">
 									</div>
 								</div>
 							</div>
@@ -119,17 +133,20 @@
 					<div class="col-2"></div>
 
 					{# Récap des ventes #}
-					<div class="col-lg-4 col-md-3 col-sm-3 col-6 border-success border border-5 rounded-2 py-2 px-2">
+					<div class="col-lg-6 col-md-6 col-sm-6 col-6 border-success border border-5 rounded-2 py-2 px-2 mb-5">
 						<h2>Ventes</h2>
 						<div class="row">
-							<div class="col-lg-6 col-md-6 col-sm-4 border-primary border border-5 rounded-2 py-2 px-2"><h4>Jour J</h4></div>
-							<div class="col-lg-6 col-md-6 col-sm-4 border-danger border border-5 rounded-2 py-2 px-2"><h4>Jour J-1</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-primary border border-5 rounded-2 py-2 px-2"><h4>Jour J<br>Nbr: {{numberOfSalesToday}} <br> Montant: {{totalMontantToday}}€</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-danger border border-5 rounded-2 py-2 px-2"><h4>Jour J-1<br>Nbr: {{numberOfSalesYesterday}} <br> Montant: {{totalMontantYesterday}}€</h4></div>
 							<div class="col-12 my-2"></div>
-							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-warning border border-5 rounded-2 py-2 px-2"><h4>Semaine S</h4></div>
-							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-success border border-5 rounded-2 py-2 px-2"><h4>Semaine S-1</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-warning border border-5 rounded-2 py-2 px-2"><h4>Semaine S<br>Nbr: {{numberOfSalesThisWeek}} <br> Montant: {{totalMontantThisWeek}}€</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-success border border-5 rounded-2 py-2 px-2"><h4>Semaine S-1<br>Nbr: {{numberOfSalesLastWeek}} <br> Montant: {{totalMontantLastWeek}}€</h4></div>
 							<div class="col-12 my-2"></div>
-							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-secondary border border-5 rounded-2 py-2 px-2"><h4>Mois M</h4></div>
-							<div class="col-lg-6 col-md-6 col-sm-4 mx-auto border-info border border-5 rounded-2 py-2 px-2"><h4>Mois M-1</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-secondary border border-5 rounded-2 py-2 px-2"><h4>Ce mois<br>Nbr: {{numberOfSalesThisMonth}} <br>Montant: {{totalMontantThisMonth}}€</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-info border border-5 rounded-2 py-2 px-2"><h4>M-1<br>Nbr: {{numberOfSalesLastMonth}} <br>Montant:{{totalMontantLastMonth}}€</h4></div>
+							<div class="col-12 my-2"></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-danger border border-5 rounded-2 py-2 px-2"><h4>Année A<br>Nbr: {{numberOfSalesThisYear}} <br>Montant: {{totalMontantThisYear}}€</h4></div>
+							<div class="col-lg-5 col-md-5 col-sm-4 mx-auto border-dark border border-5 rounded-2 py-2 px-2"><h4>Année A-1<br>Nbr: {{numberOfSalesLastYear}} <br>Montant:{{totalMontantLastYear}}€</h4></div>
 						</div>
 					</div>
 				</div>

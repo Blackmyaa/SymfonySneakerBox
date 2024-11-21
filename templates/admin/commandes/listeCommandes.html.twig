@@ -12,19 +12,20 @@
 				<thead>
 					<tr>
 						<th scope="col" class="text-center">Numéro</th>
+						<th scope="col" class="text-center">Montant</th>
 						<th scope="col" class="text-center">Date</th>
 						<th scope="col" class="text-center">Consulter</th>
 					</tr>
 				</thead>
 
 				<tbody>
-					{% for commande in commande %}
+					{% for commande in commandes %}
 						<tr>
-
-							<td class="text-center">{{commande.reference}}</td>
-							<td class="text-center">{{commande.createdAt.format('d/m/y h:m:s')}}</td>
+							<td class="text-center">{{commande.commande.reference}}</td>
+							<td class="text-center">{{commande.montant / 100}}€</td>
+							<td class="text-center">{{commande.commande.createdAt.format('d/m/y h:m:s')}}</td>
 							<td class="text-center">
-								<a class="btn btn-secondary" href="/admin/commandes{{commande.reference}}/details">voir</a>
+								<a class="btn btn-secondary" href="/admin/commandes{{commande.commande.reference}}/details">voir</a>
 							</td>
 						</tr>
 					{% endfor %}

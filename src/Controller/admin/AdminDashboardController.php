@@ -6,6 +6,7 @@ use App\Entity\Categories;
 use App\Repository\UsersRepository;
 use App\Repository\VisiteRepository;
 use App\Repository\ProduitsRepository;
+use App\Repository\CommandesRepository;
 use App\Repository\CategoriesRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminDashboardController extends AbstractController
 {
     #[Route('/MonDashboard', name: 'index')]
-    public function index(CategoriesRepository $categoriesRepository,UsersRepository $usersRepository, ProduitsRepository $produitsRepository, Request $request, VisiteRepository $visiteRepository): Response
+    public function index(CategoriesRepository $categoriesRepository,UsersRepository $usersRepository, ProduitsRepository $produitsRepository, Request $request, VisiteRepository $visiteRepository, CommandesRepository $commandesRepository): Response
     {
         $prod = $produitsRepository->findAll();
 
@@ -58,6 +59,23 @@ class AdminDashboardController extends AbstractController
         $lastProduit = $produitsRepository->findOneBy([],['created_at'=>'DESC']);
         $lastUser = $usersRepository->findOneBy([],['cree_le'=>'DESC']);
 
+        $lastOrder = $commandesRepository->findLastOrder();
+        $lastReferenceOrder = $lastOrder->getReference();
+        
+        //$lastMontantVente = $lastOrder ? $commandesRepository->findLastOrderAmount($lastOrder) : 0;
+
+        if ($lastOrder) { 
+            $lastMontantVente = $commandesRepository->findLastOrderAmount($lastOrder); 
+            $userName = $lastOrder->getUsers()->getNom(); 
+            $userLastName = $lastOrder->getUsers()->getPrenom();
+            
+        }
+        else {
+            $lastMontantVente = 0;
+            $userName = ''; 
+            $userLastName = '';
+        }
+
         //Remplissage de la partie compteur de visites
         
         $visitsToday = $visiteRepository->findTodaysVisits();
@@ -72,6 +90,35 @@ class AdminDashboardController extends AbstractController
         $visitsThisYear = $visiteRepository->findCurrentYearVisitsCount();
         $visitsLastYear = $visiteRepository->findLastYearVisitsCount();
 
+        //Remplissage de la partie Vente
+
+        //Pour le total on précise le cas ou si le nombre de commandes correspondant est égal à 0 on return 0 sinon erreur car le total sera égal NULL
+        $numberOfSalesThisYear = $commandesRepository->countCurrentYearSales(); 
+        $totalMontantThisYear = $numberOfSalesThisYear > 0 ? $commandesRepository->sumCurrentYearSales() / 100 : 0;
+
+        $numberOfSalesLastYear = $commandesRepository->countLastYearSales(); 
+        $totalMontantLastYear = $numberOfSalesLastYear > 0 ? $commandesRepository->sumLastYearSales() / 100 : 0;
+        
+        $numberOfSalesLastMonth = $commandesRepository->countLastMonthSales(); 
+        $totalMontantLastMonth = $numberOfSalesLastMonth > 0 ? $commandesRepository->sumLastMonthSales() / 100 : 0;
+
+        $numberOfSalesThisMonth = $commandesRepository->countThisMonthSales();
+        $totalMontantThisMonth = $numberOfSalesThisMonth > 0 ? $commandesRepository->sumThisMonthSales() / 100 : 0;
+
+        $numberOfSalesLastWeek = $commandesRepository->countLastWeekSales();
+        $totalMontantLastWeek = $numberOfSalesLastWeek > 0 ? $commandesRepository->sumLastWeekSales() / 100 : 0;
+
+        $numberOfSalesThisWeek = $commandesRepository->countThisWeekSales();
+        $totalMontantThisWeek = $numberOfSalesThisWeek > 0 ? $commandesRepository->sumThisWeekSales() / 100 : 0;
+
+        $numberOfSalesYesterday = $commandesRepository->countYesterdaysSales(); 
+        $totalMontantYesterday = $numberOfSalesYesterday > 0 ? $commandesRepository->sumYesterdaysSales() / 100 : 0;
+        
+        $numberOfSalesToday = $commandesRepository->countTodaysSales(); 
+        $totalMontantToday = $numberOfSalesToday > 0 ? $commandesRepository->sumTodaysSales() / 100 : 0;
+
+
+
         return $this->render('admin/admin_dashboard/index.html.twig', [
             'nombreRef'=> $nombreRef,
             'stockTotal'=>$stockTotal,
@@ -80,6 +127,10 @@ class AdminDashboardController extends AbstractController
             'prixMoyen' => $prixMoyen,
             'lastProduit'=>$lastProduit,
             'lastUser'=>$lastUser,
+            'lastReferenceVente'=>$lastReferenceOrder,
+            'lastVente'=>$lastMontantVente,
+            'userName'=>$userName,
+            'userLastName'=>$userLastName,
 
             'visitsToday'=>$visitsToday,
             'visitsYesterday'=>$visitsYesterday,
@@ -92,6 +143,31 @@ class AdminDashboardController extends AbstractController
 
             'visitsThisYear'=>$visitsThisYear,
             'visitsLastYear'=>$visitsLastYear,
+
+            'numberOfSalesLastMonth'=> $numberOfSalesLastMonth,
+            'totalMontantLastMonth'=> $totalMontantLastMonth,
+
+            'numberOfSalesThisMonth'=>$numberOfSalesThisMonth,
+            'totalMontantThisMonth'=>$totalMontantThisMonth,
+
+            'numberOfSalesLastWeek'=>$numberOfSalesLastWeek,
+            'totalMontantLastWeek'=>$totalMontantLastWeek,
+
+            'numberOfSalesThisWeek'=>$numberOfSalesThisWeek,
+            'totalMontantThisWeek'=>$totalMontantThisWeek,
+
+            'numberOfSalesYesterday'=>$numberOfSalesYesterday,
+            'totalMontantYesterday'=>$totalMontantYesterday,
+
+            'numberOfSalesToday'=>$numberOfSalesToday,
+            'totalMontantToday'=>$totalMontantToday,
+
+            'numberOfSalesThisYear'=>$numberOfSalesThisYear,
+            'totalMontantThisYear'=>$totalMontantThisYear,
+
+            'numberOfSalesLastYear'=>$numberOfSalesLastYear,
+            'totalMontantLastYear'=>$totalMontantLastYear
+
         ]);
     }
 }

@@ -15,12 +15,21 @@ class AdminCommandeController extends AbstractController
     #[Route('/admin/commandes', name: 'app_admin_commande')]
     public function listerCommande(CommandesRepository $commandesRepository, DetailCommandeRepository $detailCommandeRepository, ProduitsRepository $produitsRepository): Response
     {
-        $commande = $commandesRepository->findAll();
-        $commandeId = $commandesRepository->findById($commande);
+        $commandes = $commandesRepository->findAll();
+        $commandeId = $commandesRepository->findById($commandes);
         $detail = $detailCommandeRepository->findBy(['commande'=>$commandeId]);
+        $commandesWithAmounts = [];
+
+        foreach ($commandes as $commande){ 
+            $amount = $commandesRepository->findOrderAmountByReference($commande->getReference()); 
+            $commandesWithAmounts[] = [ 
+                'commande' => $commande, 
+                'montant' => $amount, 
+            ]; 
+        }
 
         return $this->render('admin/commandes/listeCommandes.html.twig', [
-            'commande' => $commande,
+            'commandes' => $commandesWithAmounts,
         ]);
     }
 
