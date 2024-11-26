@@ -34,6 +34,9 @@ class OrdersController extends AbstractController
         //On remplit la commande
         $order->setUsers($this->getUser());
         $order->setReference(uniqid()); //A modifier pour y mettre AnnéeMoisJourHeureMinuteSecondes AAAAMMJJHHMnMnSS voir le DateType
+        
+        $today = (new \DateTimeImmutable('today'))->format('Y-m-d 00:00:00');
+        $order->setRegisteredAt($today);
 
         //On parcourt le panier pour créer les détails de la commande
         foreach($panier as $item => $quantite){

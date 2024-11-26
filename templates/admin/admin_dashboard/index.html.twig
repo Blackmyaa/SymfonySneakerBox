@@ -10,35 +10,35 @@
 				</div>
 				<div class="row">
 					{# derniers events #}
-					<div class="col-10 mx-auto my-auto border border-danger border-5 rounded-2 py-2 px-2 mb-2">
+					<div class="col-lg-10 col-md-10 col-sm-10 mx-auto my-auto border border-danger border-5 rounded-2 py-2 px-2 mb-2">
 						<h2>Derniers events</h2>
 						<div class="row">
 
 							{# dernier produit ajouté #}
 							<div class="col-lg-6 col-md-6">
 								<div class="row">
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<h5>Produit Ajouté</h5>
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="{{lastProduit.nom}}">
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<h5></h5>
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="{{lastProduit.categories.parent.nom}}">
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<h5></h5>
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="{{lastProduit.categories.nom}}">
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<h5>Util. inscrit</h5>
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="{{lastUser.nom}} {{lastUser.prenom}}">
 									</div>
 								</div>
@@ -47,24 +47,24 @@
 							{# derniere vente et utilisateur ajoutés #}
 							<div class="col-lg-6 col-md-6">
 								<div class="row">
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<h5>Dernière vente</h5>
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="Montant: {{lastVente / 100}}€">
 									</div>
 
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 									</div>
 
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="Ref: {{lastReferenceVente}}">
 									</div>
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<h5>Effectuée par</h5>
 									</div>
 
-									<div class="mx-2 my-1 col-4">
+									<div class="mx-2 my-1 col-lg-4 col-md-4">
 										<input readonly value="{{userName}} {{userLastName}}">
 									</div>
 								</div>

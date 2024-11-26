@@ -17,7 +17,7 @@ class AccueilController extends AbstractController
     public function index(CategoriesRepository $categoriesRepo,Request $request, EntityManagerInterface $entityManager): Response
     {
         $visitorIp = $request->getClientIp();
-        $today = (new \DateTimeImmutable('today'))->format('Y-m-d');
+        $today = (new \DateTimeImmutable('today'))->format('Y-m-d 00:00:00');
 
         $existingVisitor = $entityManager->getRepository(Visite::class)->findOneBy([
             'ipAddress' => $visitorIp,

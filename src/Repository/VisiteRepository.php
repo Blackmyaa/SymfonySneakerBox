@@ -21,7 +21,8 @@ class VisiteRepository extends ServiceEntityRepository
         parent::__construct($registry, Visite::class);
     }
 
-    public function findTodaysVisits(): int { 
+    public function findTodaysVisits(): int 
+    { 
         $today = (new \DateTimeImmutable('today'))->format('Y-m-d'); 
         return $this->createQueryBuilder('v')
             ->select('COUNT(v.id)')
@@ -31,7 +32,8 @@ class VisiteRepository extends ServiceEntityRepository
             ->getSingleScalarResult(); 
     }
 
-    public function findYesterdaysVisits(): int { 
+    public function findYesterdaysVisits(): int
+    { 
         $yesterday = (new \DateTimeImmutable('yesterday'))->format('Y-m-d'); 
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
@@ -55,7 +57,8 @@ class VisiteRepository extends ServiceEntityRepository
             ->getSingleScalarResult(); 
     }
 
-    public function findLastWeekVisitsCount(): int {
+    public function findLastWeekVisitsCount(): int 
+    {
          // Trouver le lundi et le dimanche de la semaine dernière 
         $lastMonday = new \DateTimeImmutable('last week monday'); 
         $lastSunday = new \DateTimeImmutable('last week sunday');
@@ -120,29 +123,58 @@ class VisiteRepository extends ServiceEntityRepository
             ->getSingleScalarResult(); 
     }
 
+    public function findDaysWithMostVisits(\DateTimeInterface $startDate, \DateTimeInterface $endDate): array 
+    {
+        $qb = $this->_em->createQueryBuilder(); 
+        $qb->select('v.visitedAt as visitDay, COUNT(v.id) as totalVisits')
+            ->from('App\Entity\Visite', 'v') 
+            ->where('v.visitedAt BETWEEN :startDate AND :endDate')
+            ->setParameter('startDate', $startDate->format('Y-m-d 00:00:00'))
+            ->setParameter('endDate', $endDate->format('Y-m-d 23:59:59')) 
+            ->groupBy('v.visitedAt') 
+            ->orderBy('totalVisits', 'DESC')
+            ->setMaxResults(1); // Limiter les résultats à 5
+        
+        return $qb->getQuery()->getResult();
+    }
 
-//    /**
-//     * @return Visite[] Returns an array of Visite objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('v.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
-
-//    public function findOneBySomeField($value): ?Visite
-//    {
-//        return $this->createQueryBuilder('v')
-//            ->andWhere('v.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function findPeriodStatistics(\DateTimeInterface $startDate, \DateTimeInterface $endDate): array 
+    { 
+        // Compter le nombre de visites 
+        $qbVisits = $this->_em->createQueryBuilder(); 
+        $qbVisits->select('COUNT(v.id) as totalVisits') 
+            ->from('App\Entity\Visite', 'v') 
+            ->where('v.visitedAt BETWEEN :startDate AND :endDate') 
+            ->setParameter('startDate', $startDate->format('Y-m-d 00:00:00')) 
+            ->setParameter('endDate', $endDate->format('Y-m-d 23:59:59')); 
+        
+            $totalVisits = $qbVisits->getQuery()->getSingleScalarResult(); 
+        
+        // Compter le nombre de commandes passées 
+        $qbOrders = $this->_em->createQueryBuilder(); 
+        $qbOrders->select('COUNT(c.id) as totalOrders') 
+            ->from('App\Entity\Commandes', 'c') 
+            ->where('c.registeredAt BETWEEN :startDate AND :endDate') 
+            ->setParameter('startDate', $startDate->format('Y-m-d 00:00:00')) 
+            ->setParameter('endDate', $endDate->format('Y-m-d 23:59:59')); 
+        
+        $totalOrders = $qbOrders->getQuery()->getSingleScalarResult(); 
+        
+        // Compter le nombre d'articles vendus 
+        $qbItems = $this->_em->createQueryBuilder(); 
+        $qbItems->select('SUM(d.quantite) as totalItems') 
+        ->from('App\Entity\DetailCommande', 'd') 
+        ->join('d.commande', 'c') 
+        ->where('c.registeredAt BETWEEN :startDate AND :endDate') 
+        ->setParameter('startDate', $startDate->format('Y-m-d 00:00:00')) 
+        ->setParameter('endDate', $endDate->format('Y-m-d 23:59:59')); 
+        
+        $totalItems = $qbItems->getQuery()->getSingleScalarResult(); 
+        
+        return [ 
+            'totalVisits' => $totalVisits ? (int) $totalVisits : 0, 
+            'totalOrders' => $totalOrders ? (int) $totalOrders : 0, 
+            'totalItems' => $totalItems ? (int) $totalItems : 0, 
+        ]; 
+    }
 }

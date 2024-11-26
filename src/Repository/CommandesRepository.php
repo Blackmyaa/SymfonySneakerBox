@@ -277,13 +277,14 @@ class CommandesRepository extends ServiceEntityRepository
     { 
         $firstDayOfLastYear = new \DateTimeImmutable('first day of January last year'); 
         $lastDayOfLastYear = new \DateTimeImmutable('last day of December last year'); 
+        
         return $this->createQueryBuilder('c') 
-        ->select('SUM(d.prix * d.quantite) as totalAmount') 
-        ->join('c.detailCommandes', 'd') 
-        ->where('c.created_at BETWEEN :firstDayOfLastYear AND :lastDayOfLastYear') 
-        ->setParameter('firstDayOfLastYear', $firstDayOfLastYear->format('Y-m-d 00:00:00')) 
-        ->setParameter('lastDayOfLastYear', $lastDayOfLastYear->format('Y-m-d 23:59:59')) 
-        ->getQuery() 
-        ->getSingleScalarResult(); 
+            ->select('SUM(d.prix * d.quantite) as totalAmount') 
+            ->join('c.detailCommandes', 'd') 
+            ->where('c.created_at BETWEEN :firstDayOfLastYear AND :lastDayOfLastYear') 
+            ->setParameter('firstDayOfLastYear', $firstDayOfLastYear->format('Y-m-d 00:00:00')) 
+            ->setParameter('lastDayOfLastYear', $lastDayOfLastYear->format('Y-m-d 23:59:59')) 
+            ->getQuery() 
+            ->getSingleScalarResult(); 
     } 
 }

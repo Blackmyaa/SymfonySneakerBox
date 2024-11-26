@@ -1,1 +1,277 @@
-Frequentaion du site... analyse des visites
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails et analyse
+{% endblock %}
+{% block body %}
+    <style>
+        #top5_sales_type_0, #top5_sales_type_1, #flop5_sales_type_0, #flop5_sales_type_1 { 
+            margin-right:5px; /* Ajoute un espacement entre chaque option */
+        }
+
+        #top5_sales_type_1, #top5_sales_category, #flop5_sales_type_1, #flop5_sales_category { 
+            margin-left: 15px; /* Ajoute un espacement entre chaque option */ 
+        }
+    </style>
+        {% include "tools/dashNav.html.twig" %}
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 container">
+            {% include "tools/messageFlash.html.twig" %}
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">Détails et Analyse</h1>
+            </div>            
+            <h3 class="mt-3">Ecoulement des produits</h3> 
+
+            <div class="row  mt-3">
+                <div class="col-lg-3">
+                    <h4>5 articles les plus vendus</h4>
+                    {{ form_start(formTop5) }}
+                        {{ form_row(formTop5.start_date) }} 
+                        {{ form_row(formTop5.end_date) }} 
+                        {{ form_row(formTop5.type) }}
+                        <div id="category-select" {% if formTop5.type.vars.value != 'category' %}style="display: none;" {% endif %}> 
+                            {{ form_row(formTop5.category) }} 
+                        </div> 
+                        {{ form_row(formTop5.submit) }} 
+                    {{ form_end(formTop5) }}
+                </div>
+                <div class="col-lg-3">
+                    <h4>5 articles les moins vendus</h4>
+                    {{ form_start(formFlop5) }}
+                        {{ form_row(formFlop5.start_date) }} 
+                        {{ form_row(formFlop5.end_date) }} 
+                        {{ form_row(formFlop5.type) }}
+                        <div id="category-select2" {% if formFlop5.type.vars.value != 'category' %}style="display: none;" {% endif %}> 
+                            {{ form_row(formFlop5.category) }} 
+                        </div> 
+                        {{ form_row(formFlop5.submit) }} 
+                    {{ form_end(formFlop5) }}
+                </div>
+
+                <div class="col-lg-3">
+                    <h4>Article le plus vendu</h4> 
+                    {{ form_start(form) }} 
+                        {{ form_row(form.start_date) }} 
+                        {{ form_row(form.end_date) }} 
+                        {{ form_row(form.submit) }} 
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-lg-3">
+                    <h4>Article le moins vendu</h4>
+                    {{ form_start(formflop) }} 
+                        {{ form_row(formflop.start_date) }} 
+                        {{ form_row(formflop.end_date) }} 
+                        {{ form_row(formflop.submit) }} 
+                    {{ form_end(formflop) }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                {% if top5SoldProducts %} 
+                    <h2>Résultats</h2>
+                    <table class="table table-striped border border-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom du produit</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Quantité vendue</th>
+                                <th>Voir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in top5SoldProducts %} 
+                            <tr>
+                                <th scope="row">{{ product.nom }}</th>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.stock }}</td>
+                                <td>{{ product.totalQuantity }}</td>
+                                <th>
+                                    <a type="button" class="btn btn-secondary text-white" href="/admin/produits/{{product.slug}}">
+                                        Détails
+                                    </a>
+                                </th>
+                            </tr>
+                        {% endfor %} 
+                        </tbody>
+                    </table>
+                {% endif %}
+
+                {% if flop5SoldProducts %} 
+                    <h2>Résultats</h2>
+                    <table class="table table-striped border border-dark">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nom du produit</th>
+                                <th scope="col">Id</th>
+                                <th scope="col">Stock</th>
+                                <th scope="col">Quantité vendue</th>
+                                <th>Voir</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for product in flop5SoldProducts %} 
+                            <tr>
+                                <th scope="row">{{ product.nom }}</th>
+                                <td>{{ product.id }}</td>
+                                <td>{{ product.stock }}</td>
+                                <td>{{ product.totalQuantity }}</td>
+                                <th>
+                                    <a type="button" class="btn btn-secondary text-white" href="/admin/produits/{{product.slug}}">
+                                        Détails
+                                    </a>
+                                </th>
+                            </tr>
+                        {% endfor %} 
+                        </tbody>
+                    </table>
+                {% endif %}
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    {% if mostSoldProduct %} 
+                        <h2>Résultats</h2> 
+                        <p>Nom de l'article : {{ mostSoldProduct.nom }}</p> 
+                        <p>ID de l'article : {{ mostSoldProduct.id }}</p>
+                        <p>Stock restant de l'article : {{ mostSoldProduct.stock }}</p>
+                        <p>Quantité vendue : {{ mostSoldProduct.totalQuantity }}</p> 
+                    {% endif %}
+
+                    {% if leastSoldProduct %} 
+                        <h2>Résultats</h2> 
+                        <p>Nom de l'article : {{ leastSoldProduct.nom }}</p> 
+                        <p>ID de l'article : {{ leastSoldProduct.id }}</p>
+                        <p>Stock restant de l'article : {{ leastSoldProduct.stock }}</p>
+                        <p>Quantité vendue : {{ leastSoldProduct.totalQuantity }}</p> 
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="border border-top border-danger"></div>
+
+            <h3>Analyse des ventes</h3> 
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    {{ form_start(formAnalysis) }} 
+                        {{ form_row(formAnalysis.start_date) }} 
+                        {{ form_row(formAnalysis.end_date) }} 
+                        {{ form_row(formAnalysis.submit) }} 
+                    {{ form_end(formAnalysis) }} 
+                </div>
+                    {% if salesAnalysis %} 
+                        <div class="col-lg-3">
+                            {% if salesAnalysis.totalSalesPeriod %}
+                                <h4>Total des ventes sur la période:</h4>
+                                <p>{{salesAnalysis.totalSalesPeriod / 100}}€</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-lg-4">
+                            {% if salesAnalysis.dayWithMostSales %} 
+                                <h4>Jour avec le plus grand nombre de ventes</h4>
+                                <p> Jour : {{ salesAnalysis.dayWithMostSales.saleDay }}<br> 
+                                Total des ventes : {{ salesAnalysis.dayWithMostSales.totalSales }} </p> 
+                            {% endif %} 
+                            {% if salesAnalysis.dayWithHighestSalesAmount %} 
+                                <h4>Jour avec le plus gros montant de ventes</h4> 
+                                <p> Jour : {{ salesAnalysis.dayWithHighestSalesAmount.saleDay }}<br> 
+                                Montant total des ventes : {{ salesAnalysis.dayWithHighestSalesAmount.totalAmount / 100 }}€ </p> 
+                            {% endif %}
+                            {% elseif noSalesMessage %} 
+                            <p>{{ noSalesMessage }}</p> 
+                        </div>
+
+                    {% endif %}
+
+            </div>
+
+            <div class="border border-top border-danger"></div>
+
+            <h3>Analyse du trafic-transformation</h3>
+            <div class="row mt-3">
+                <div class="col-lg-3">
+                    {{ form_start(formVisits) }} 
+                        {{ form_row(formVisits.start_date) }} 
+                        {{ form_row(formVisits.end_date) }} 
+                        {{ form_row(formVisits.submit) }} 
+                    {{ form_end(formVisits) }}
+                </div>
+                <div class="col-lg-6">
+                    <h4>Statistiques de la période</h4> 
+                    {% if visitDay %}
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <p> Total des visites : {{ statistics.totalVisits }}<br> 
+                                Total des commandes passées : {{ statistics.totalOrders }}<br>
+                                Total des articles vendus : {{ statistics.totalItems }} 
+                                </p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p> Taux de transfo : {{ ((statistics.totalOrders / statistics.totalVisits) * 100 )|number_format(2, '.', ',') }}%<br> 
+                                Ticket moyen : {{ ((totalSalesAmount / 100) / statistics.totalOrders)|number_format(2, '.', ',') }}€<br>
+                                Indice de vente : {{ (statistics.totalItems / statistics.totalOrders)|number_format(2, '.', ',')}} art/ticket 
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>Aucune donnée enregistrée pour la période sélectionnée. Sélectionnez une autre période svp</p> 
+                    {% endif %}
+                </div>
+
+                <div class="col-lg-3">
+                    <h4>Meilleure fréquentation</h4> 
+                    {% if visitDay %} 
+                        <p> Jour + de visites: {{ visitDay[0].visitDay }}<br> 
+                        Total des visites : {{ visitDay[0].totalVisits }} <br>
+                        {% if totalSalesAmount is not null %}
+                            Montant total des ventes :{{ totalSalesAmount / 100}}€ </p>
+                        {% else %} 
+                            <p>Aucune vente enregistrée pour ce jour.</p>
+                        {% endif %}
+                    {% else %} 
+                        <p>Aucune visite enregistrée pendant la période sélectionnée. Sélectionnez une autre période svp</p> 
+                    {% endif %}
+                    
+                </div>
+            </div>
+            <div class="border border-top border-danger"></div>
+        </main>
+    </div>
+</div>
+<script> 
+    document.addEventListener('DOMContentLoaded', function () {
+    
+    //Mise en place des écouteurs d'événements pour afficher/enlever les selecteurs de catégories
+        var categorySelect = document.getElementById('category-select'); 
+        var typeGeneral = document.getElementById('top5_sales_type_0'); 
+        var typeCategory = document.getElementById('top5_sales_type_1');
+
+        var categorySelect2 = document.getElementById('category-select2'); 
+        var typeGeneral2 = document.getElementById('flop5_sales_type_0');
+        var typeCategory2 = document.getElementById('flop5_sales_type_1'); 
+
+        function toggleCategorySelect() { 
+            if (typeCategory.checked) { 
+                categorySelect.style.display = 'block'; 
+            } else { 
+                categorySelect.style.display = 'none'; 
+            } 
+        } 
+
+        function toggleCategorySelect2() { 
+            if (typeCategory2.checked) { 
+                categorySelect2.style.display = 'block'; 
+            } else { 
+                categorySelect2.style.display = 'none'; 
+            } 
+        }
+        
+        typeGeneral.addEventListener('change', toggleCategorySelect); 
+        typeCategory.addEventListener('change', toggleCategorySelect);
+        
+        typeGeneral2.addEventListener('change', toggleCategorySelect2); 
+        typeCategory2.addEventListener('change', toggleCategorySelect2); 
+        
+        // Initialize display based on the current selection 
+        toggleCategorySelect();
+        toggleCategorySelect2(); 
+    });  
+</script>
+{% endblock %}

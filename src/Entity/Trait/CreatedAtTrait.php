@@ -10,6 +10,9 @@ trait CreatedAtTrait
     #[ORM\Column(options: ['default'=> 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $created_at = null;
     
+    #[ORM\Column(type: 'string', nullable: true)] 
+    private ?string $registeredAt = null;
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->created_at;
@@ -20,5 +23,15 @@ trait CreatedAtTrait
         $this->created_at = $created_at;
 
         return $this;
+    }
+
+    public function getRegisteredAt(): ?string 
+    { 
+        return $this->registeredAt; 
+    } 
+    
+    public function setRegisteredAt(string $registeredAt): self 
+    { 
+        $this->registeredAt = $registeredAt; return $this; 
     }
 }
