@@ -23,7 +23,7 @@ class VisiteRepository extends ServiceEntityRepository
 
     public function findTodaysVisits(): int 
     { 
-        $today = (new \DateTimeImmutable('today'))->format('Y-m-d'); 
+        $today = (new \DateTimeImmutable('today'))->format('Y-m-d 00:00:00'); 
         return $this->createQueryBuilder('v')
             ->select('COUNT(v.id)')
             ->where('v.visitedAt = :today') 
@@ -34,7 +34,7 @@ class VisiteRepository extends ServiceEntityRepository
 
     public function findYesterdaysVisits(): int
     { 
-        $yesterday = (new \DateTimeImmutable('yesterday'))->format('Y-m-d'); 
+        $yesterday = (new \DateTimeImmutable('yesterday'))->format('Y-m-d 00:00:00'); 
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt = :yesterday') 
@@ -51,8 +51,8 @@ class VisiteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt BETWEEN :monday AND :today') 
-            ->setParameter('monday', $monday->format('Y-m-d')) 
-            ->setParameter('today', $today->format('Y-m-d')) 
+            ->setParameter('monday', $monday->format('Y-m-d 00:00:00')) 
+            ->setParameter('today', $today->format('Y-m-d 23:59:59')) 
             ->getQuery() 
             ->getSingleScalarResult(); 
     }
@@ -65,8 +65,8 @@ class VisiteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt BETWEEN :lastMonday AND :lastSunday') 
-            ->setParameter('lastMonday', $lastMonday->format('Y-m-d')) 
-            ->setParameter('lastSunday', $lastSunday->format('Y-m-d')) 
+            ->setParameter('lastMonday', $lastMonday->format('Y-m-d 00:00:00')) 
+            ->setParameter('lastSunday', $lastSunday->format('Y-m-d 23:59:59')) 
             ->getQuery() 
             ->getSingleScalarResult(); 
     }
@@ -78,8 +78,8 @@ class VisiteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt BETWEEN :firstDayOfMonth AND :today') 
-            ->setParameter('firstDayOfMonth', $firstDayOfMonth->format('Y-m-d')) 
-            ->setParameter('today', $today->format('Y-m-d')) 
+            ->setParameter('firstDayOfMonth', $firstDayOfMonth->format('Y-m-d 00:00:00')) 
+            ->setParameter('today', $today->format('Y-m-d 23:59:59')) 
             ->getQuery() 
             ->getSingleScalarResult(); 
     } 
@@ -91,8 +91,8 @@ class VisiteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt BETWEEN :firstDayOfLastMonth AND :lastDayOfLastMonth') 
-            ->setParameter('firstDayOfLastMonth', $firstDayOfLastMonth->format('Y-m-d')) 
-            ->setParameter('lastDayOfLastMonth', $lastDayOfLastMonth->format('Y-m-d')) 
+            ->setParameter('firstDayOfLastMonth', $firstDayOfLastMonth->format('Y-m-d 00:00:00')) 
+            ->setParameter('lastDayOfLastMonth', $lastDayOfLastMonth->format('Y-m-d 23:59:59')) 
             ->getQuery() 
             ->getSingleScalarResult(); 
     }
@@ -104,8 +104,8 @@ class VisiteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt BETWEEN :firstDayOfYear AND :today') 
-            ->setParameter('firstDayOfYear', $firstDayOfYear->format('Y-m-d')) 
-            ->setParameter('today', $today->format('Y-m-d')) 
+            ->setParameter('firstDayOfYear', $firstDayOfYear->format('Y-m-d 00:00:00')) 
+            ->setParameter('today', $today->format('Y-m-d 23:59:59')) 
             ->getQuery() 
             ->getSingleScalarResult(); 
     } 
@@ -117,8 +117,8 @@ class VisiteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('v') 
             ->select('COUNT(v.id)') 
             ->where('v.visitedAt BETWEEN :firstDayOfLastYear AND :lastDayOfLastYear') 
-            ->setParameter('firstDayOfLastYear', $firstDayOfLastYear->format('Y-m-d')) 
-            ->setParameter('lastDayOfLastYear', $lastDayOfLastYear->format('Y-m-d')) 
+            ->setParameter('firstDayOfLastYear', $firstDayOfLastYear->format('Y-m-d 00:00:00')) 
+            ->setParameter('lastDayOfLastYear', $lastDayOfLastYear->format('Y-m-d 23:59:59')) 
             ->getQuery() 
             ->getSingleScalarResult(); 
     }

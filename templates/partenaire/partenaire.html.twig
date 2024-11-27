@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos partenaires
+{% endblock %}
+{% block stylesheets %}
+<style>
+	.margin-left{
+		margin-left: 50px;
+	}
+</style>
+{% endblock %}
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	<main class="container">
+		<section class="row mt-2">
+			<h1>Les partenaires</h1>
+            
+			<h3 class="mt-3">Mi Creations Rx</h3>
+
+			<h5 class="mt-2">Présentation</h5>
+			<p>Salut, moi c'est Minouche.<br>
+			Je vis à Roubaix, en Hauts-de-France, capitale du textile :) et leader en zéro déchets.<br><br>
+
+			J'ai eu l'occasion de lire un livre cette année 2023 qui m'a rappelé que la vie est courte et qu'on a 2 choix :<br>
+			<ul>
+				<li class="margin-left">peaufiner des plans jusqu'à ce qu'ils soient parfaits avant de se lancer. Souvent on réfléchit tellement qu'on ne passe jamais de la théorie à l'action... ça te parle?
+				</li>
+			</ul>
+			<h4>OU</h4>
+			<ul>
+				<li class="margin-left">démarrer par une première version, un prototype. Cela a pour bénéfice de se familiariser avec l'activité visée, son marché, à petite échelle... On peut ainsi voir si ça nous plaît et dans tous les cas on APPREND!</li>
+			</ul>
+			J'ai donc décidé d'apprendre avec cette première version de mon projet : Mi Créations Rx et surtout de me faire plaisir en créant de mes 2 mains.<br><br>
+			
+			J'apprendrai également en te sollicitant régulièrement sur les réseaux sociaux afin de capter ce qui te plaît ou non dans le but d'améliorer l'offre que je propose.<br><br>
+
+			On y trouve:<br>
+			<ul>
+				<li class="margin-left">Des bijoux en petites séries en acier inoxydable</li>
+				<li class="margin-left">Des bougies pour faire plaisir dans des contenants originaux.</li>
+				<li class="margin-left">Des articles de décoration ou des contenants à bougies en Jesmonite, résine écologique.</li>
+			</ul>
+			Dans tous les cas mes créations seront faites de mes 10 doigts.
+			</p>
+
+			<div class="row">
+			<h2>Où trouver Mi Creations Rx:</h2>
+				{% for qrCode in qrCodes %} 
+					<div class="col-lg-2">
+						<div style="margin-bottom: 20px;">
+							<h3>{{ qrCode.name }}</h3>
+							<img src="{{ qrCode.image }}" alt="QR Code for {{ qrCode.name }}" style="width: 150px; height: 150px;"> 
+						</div> 
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	</main>
+	{% include "tools/footer.html.twig" %}
+{% endblock %}
+
