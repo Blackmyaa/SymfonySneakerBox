@@ -18,24 +18,18 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group mt-3">
-                                {{ form_label(form.nom) }}
-                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.nom) }}
+                                {{ form_row(form.nom, {'attr': {'class': 'form-control'}}) }}
                             </div>
 
                             <div class="form-group">
-                                {{ form_label(form.prenom) }}
-                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.prenom) }}
+                                {{ form_row(form.prenom, {'attr': {'class': 'form-control'}}) }}
                             </div>
                         </div>
 
 
                         <div class="col-lg-6">
                             <div class="form-group mt-3">
-                                {{ form_label(form.sujet) }}
-                                {{ form_widget(form.sujet, {'attr': {'class': 'form-control'}}) }}
-                                {{ form_errors(form.sujet) }}
+                                {{ form_row(form.sujet, {'attr': {'class': 'form-control'}}) }}
                             </div>
 
                             <div class="form-group" id="autre-sujet-group" style="display: none;">
@@ -47,15 +41,11 @@
 
 
                     <div class="form-group">
-                        {{ form_label(form.email) }}
-                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(form.email) }}
+                        {{ form_row(form.email, {'attr': {'class': 'form-control'}}) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(form.message) }}
-                        {{ form_widget(form.message, {'attr': {'class': 'form-control'}}) }}
-                        {{ form_errors(form.message) }}
+                        {{ form_row(form.message, {'attr': {'class': 'form-control'}}) }}
                     </div>
 
                     <button type="submit" class="btn btn-success mt-3">Envoyer</button>
@@ -73,14 +63,11 @@
             autreSujetGroup.style.display = 'none'; 
         } 
     });
-
-    document.getElementById('contact-form').addEventListener('keypress', function(event) { 
-        if (event.key === 'Enter') { event.preventDefault(); 
-        // Empêcher l'action par défaut 
-        this.submit(); 
-        // Soumettre le formulaire 
-        } 
-    });
     
+    ClassicEditor
+        .create(document.querySelector('#contact_form_message'))
+        .catch(error => {
+            console.error(error);
+        });
     </script>
 {% endblock %}

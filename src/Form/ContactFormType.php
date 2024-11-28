@@ -6,6 +6,7 @@ namespace App\Form;
 use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bundle\SecurityBundle\Security;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -58,7 +59,10 @@ class ContactFormType extends AbstractType
                 ], 
             ])
 
-            ->add('message', TextareaType::class, ['label' => 'Message']);
+            ->add('message', TextareaType::class, [
+                'label' => 'Message']);
+
+            
     }
 
     public function configureOptions(OptionsResolver $resolver)
