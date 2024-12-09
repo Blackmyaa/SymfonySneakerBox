@@ -3,28 +3,31 @@
 // src/Controller/ContactController.php
 namespace App\Controller;
 
-use App\Entity\Contact;
 use App\Entity\Users;
+use App\Entity\Contact;
 use App\Form\ContactFormType;
+use App\Service\QrCodeService;
 use App\Service\SendMailService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Role\RoleHierarchyInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class ContactController extends AbstractController
+class FooterController extends AbstractController
 {
     private $roleHierarchy;
     private $userRepository;
     private $emailService;
 
-    public function __construct(RoleHierarchyInterface $roleHierarchy, EntityManagerInterface $entityManager, SendMailService $emailService)
+    public function __construct(QrCodeService $qrCodeService, RoleHierarchyInterface $roleHierarchy, EntityManagerInterface $entityManager, SendMailService $emailService)
     {
         $this->roleHierarchy = $roleHierarchy;
         $this->userRepository = $entityManager->getRepository(Users::class);
         $this->emailService = $emailService;
+        $this->qrCodeService = $qrCodeService;
+
     }
 
     private function getAdminEmails()
@@ -39,6 +42,15 @@ class ContactController extends AbstractController
         }
         
         return $adminEmails;
+    }
+
+    private QrCodeService $qrCodeService;
+
+    public function generateMailToQrCode()
+    {
+        
+        // Maintenant vous pouvez utiliser $qrCodeBase64 dans votre application (affichage dans une image par exemple)
+        return $qrCodeBase64;
     }
 
     #[Route("/contact", name:"contact")]
@@ -84,8 +96,29 @@ class ContactController extends AbstractController
             return $this->redirectToRoute('contact');
         }
 
-        return $this->render('contactForm/contactForm.html.twig', [
+        return $this->render('footer/contactForm.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route("/notreTeam", name:"teamMSB")]
+    public function team(): Response
+    {
+        // Paramètres de l'email
+        $email = "ymbenzedi@gmail.com";
+        $subject = "Demande de renseignement";
+        $body = "Bonjour Yves, j'aimerais obtenir plus d'informations sur certains produits.";
+
+        // Générer l'URL mailto
+        $mailtoUrl = $this->qrCodeService->generateMailtoUrl($email, $subject, $body);
+        
+        // Remplacer les "+" par "%20" pour les espaces dans l'URL
+        $mailtoUrl = str_replace('+', '%20', $mailtoUrl);        
+        // Générer le QR code en base64
+        $qrCodeBase64 = $this->qrCodeService->generateQrCodeBase64($mailtoUrl);
+        
+        return $this->render('footer/notreTeam.html.twig', [
+            'qr_code_base64' => $qrCodeBase64
         ]);
     }
 }

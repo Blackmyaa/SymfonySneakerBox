@@ -6,13 +6,15 @@ namespace App\Form;
 use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Bundle\SecurityBundle\Security;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type; 
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+
 
 class ContactFormType extends AbstractType
 {
@@ -60,9 +62,14 @@ class ContactFormType extends AbstractType
             ])
 
             ->add('message', TextareaType::class, [
-                'label' => 'Message']);
-
+                'label' => 'Message'
+            ])
             
+            ->add('captcha', Recaptcha3Type::class, [ 
+                'constraints' => new Recaptcha3(), 
+                'action_name' => 'homepage', 
+                'locale' => 'fr', 
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

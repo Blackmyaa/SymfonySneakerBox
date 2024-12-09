@@ -30,5 +30,24 @@ class QrCodeService
         $imageData = $result->getString(); // Données binaires de l'image
 
         return base64_encode($imageData); // Convertir en base64    
-        }
+    }
+
+    /**
+     * Créer l'URL mailto avec le sujet et le corps
+     * 
+     * @param string $email Destinataire de l'email
+     * @param string $subject Sujet de l'email
+     * @param string $body Corps de l'email
+     * @return string URL mailto formatée
+     */
+
+    public function generateMailtoUrl(string $email, string $subject, string $body): string
+    {
+        // Encoder les paramètres pour l'URL
+        $subjectEncoded = urlencode($subject);
+        $bodyEncoded = urlencode($body);
+        
+        // Créer l'URL mailto
+        return "mailto:$email?subject=$subjectEncoded&body=$bodyEncoded";
+    }
 }

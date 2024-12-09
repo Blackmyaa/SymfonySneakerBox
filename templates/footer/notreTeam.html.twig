@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Notre équipe{% endblock %}
+
+{% block body %}
+	{% include "tools/userNav.html.twig" %}
+	<main class="container">
+		<section class="row mt-2">
+            <h1>Notre équipe</h1>
+
+            <ul>
+                <li>Yves 
+                    <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="QR Code"  style="width: 150px; height: 150px;">
+                </li>
+                <li>Laury</li>
+                <li>Lilou</li>
+                <li>Minouche</li>
+                <li>Nathan</li>
+                <li>Claude</li>
+            </ul>
+                
+        </section>
+    </main>
+{% include "tools/footer.html.twig" %}
+    
+{% endblock %}
